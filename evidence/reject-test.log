@@ -1,0 +1,89 @@
+Microsoft (R) SQL Server Execute Package Utility
+Version 17.0.1000.7 for 64-bit
+Copyright (C) 2025 Microsoft. All rights reserved.
+
+Started:  11:35:01 AM
+Info: 2026-10-08 11:35:01.98
+   Code: 0x4004300A
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Validation phase is beginning.
+End Info
+Warning: 2026-10-08 11:35:02.01
+   Code: 0x80049304
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Warning: Could not open global shared memory to communicate with performance DLL; data flow performance counters are not available.  To resolve, run this package as an administrator, or on the system's console.
+End Warning
+Info: 2026-10-08 11:35:02.02
+   Code: 0x40043006
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Prepare for Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:02.02
+   Code: 0x40043007
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Pre-Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:02.02
+   Code: 0x4020F42C
+   Source: DFT CSV to Raw Staging OLE DB Destination [107]
+   Description: The Maximum insert commit size property of the OLE DB destination "OLE DB Destination" is set to 0. This property setting can cause the running package to stop responding. For more information, see the F1 Help topic for OLE DB Destination Editor (Connection Manager Page).
+End Info
+Info: 2026-10-08 11:35:02.04
+   Code: 0x402090DC
+   Source: DFT CSV to Raw Staging Flat File Source [2]
+   Description: The processing of file "<REPO>\evidence\invalid-fixture.csv" has started.
+End Info
+Info: 2026-10-08 11:35:02.04
+   Code: 0x4004300C
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:02.04
+   Code: 0x402090DE
+   Source: DFT CSV to Raw Staging Flat File Source [2]
+   Description: The total number of data rows processed for file "<REPO>\evidence\invalid-fixture.csv" is 5.
+End Info
+Info: 2026-10-08 11:35:02.04
+   Code: 0x402090DF
+   Source: DFT CSV to Raw Staging OLE DB Destination [107]
+   Description: The final commit for the data insertion in "OLE DB Destination" has started.
+End Info
+Info: 2026-10-08 11:35:02.05
+   Code: 0x402090E0
+   Source: DFT CSV to Raw Staging OLE DB Destination [107]
+   Description: The final commit for the data insertion  in "OLE DB Destination" has ended.
+End Info
+Info: 2026-10-08 11:35:02.05
+   Code: 0x40043008
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Post Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:02.05
+   Code: 0x402090DD
+   Source: DFT CSV to Raw Staging Flat File Source [2]
+   Description: The processing of file "<REPO>\evidence\invalid-fixture.csv" has ended.
+End Info
+Info: 2026-10-08 11:35:02.05
+   Code: 0x4004300B
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: "OLE DB Destination" wrote 4 rows.
+End Info
+Info: 2026-10-08 11:35:02.05
+   Code: 0x40043009
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Cleanup phase is beginning.
+End Info
+Error: 2026-10-08 11:35:02.21
+   Code: 0xC002F210
+   Source: SQL Validate and Transform Execute SQL Task
+   Description: Executing the query "EXEC etl.usp_ValidateStage ?,?;" failed with the following error: "Reject threshold exceeded; the published warehouse is unchanged. Inspect etl.Reject.". Possible failure reasons: Problems with the query, "ResultSet" property not set correctly, parameters not set correctly, or connection not established correctly.
+End Error
+Warning: 2026-10-08 11:35:02.21
+   Code: 0x80019002
+   Source: MarineShiftETL
+   Description: SSIS Warning Code DTS_W_MAXIMUMERRORCOUNTREACHED.  The Execution method succeeded, but the number of errors raised (1) reached the maximum allowed (1); resulting in failure. This occurs when the number of errors reaches the number specified in MaximumErrorCount. Change the MaximumErrorCount or fix the errors.
+End Warning
+DTExec: The package execution returned DTSER_FAILURE (1).
+Started:  11:35:01 AM
+Finished: 11:35:02 AM
+Elapsed:  0.562 seconds

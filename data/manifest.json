@@ -1,0 +1,126 @@
+{
+  "rows": 108680,
+  "duplicate_ids": 0,
+  "columns": [
+    "id",
+    "country",
+    "decimalLatitude",
+    "decimalLongitude",
+    "latitude_band",
+    "shoredistance",
+    "eventDate",
+    "depth",
+    "depth_band",
+    "sst",
+    "sss",
+    "flags",
+    "flag_on_land",
+    "flag_marine_unsure",
+    "kingdom",
+    "phylum",
+    "class",
+    "order",
+    "family",
+    "genus",
+    "species",
+    "scientificName",
+    "occurrenceStatus",
+    "individualCount"
+  ],
+  "missing": {
+    "id": 0,
+    "country": 65538,
+    "decimalLatitude": 0,
+    "decimalLongitude": 0,
+    "latitude_band": 0,
+    "shoredistance": 0,
+    "eventDate": 0,
+    "depth": 46440,
+    "depth_band": 46440,
+    "sst": 690,
+    "sss": 690,
+    "flags": 0,
+    "flag_on_land": 0,
+    "flag_marine_unsure": 0,
+    "kingdom": 336,
+    "phylum": 1105,
+    "class": 4996,
+    "order": 8882,
+    "family": 17976,
+    "genus": 31455,
+    "species": 55202,
+    "scientificName": 0,
+    "occurrenceStatus": 52944,
+    "individualCount": 67044
+  },
+  "lengths": {
+    "id": 36,
+    "country": 11,
+    "decimalLatitude": 11,
+    "decimalLongitude": 11,
+    "latitude_band": 7,
+    "shoredistance": 6,
+    "eventDate": 10,
+    "depth": 11,
+    "depth_band": 30,
+    "sst": 5,
+    "sss": 5,
+    "flags": 49,
+    "flag_on_land": 5,
+    "flag_marine_unsure": 5,
+    "kingdom": 20,
+    "phylum": 23,
+    "class": 29,
+    "order": 36,
+    "family": 36,
+    "genus": 27,
+    "species": 46,
+    "scientificName": 46,
+    "occurrenceStatus": 7,
+    "individualCount": 7
+  },
+  "date_min": "01/01/1980",
+  "latitude_range": [
+    0.03348,
+    23.0
+  ],
+  "longitude_range": [
+    103.3960299,
+    120.83
+  ],
+  "categories": {
+    "latitude_band": {
+      "0-5°N": 4941,
+      "20-23°N": 43974,
+      "15-20°N": 17869,
+      "5-10°N": 17244,
+      "10-15°N": 24652
+    },
+    "depth_band": {
+      "": 46440,
+      "Coastal/surface (<50 m)": 28970,
+      "Deep sea (>1000 m)": 3079,
+      "Continental shelf (50-200 m)": 15740,
+      "Continental slope (200-1000 m)": 14451
+    },
+    "occurrenceStatus": {
+      "present": 55736,
+      "": 52944
+    },
+    "flag_on_land": {
+      "FALSE": 103590,
+      "TRUE": 5090
+    },
+    "flag_marine_unsure": {
+      "FALSE": 108680
+    }
+  },
+  "file": "occurrence_clean.csv",
+  "sha256": "a560e42917659abbbe1be9b5128269aa73510c0f7d84afd40f8667c5be5986a0",
+  "encoding": "UTF-8 BOM",
+  "date_range": [
+    "1980-01-01",
+    "2026-07-13"
+  ],
+  "input_stage": "already cleaned source provided by project author"
+}

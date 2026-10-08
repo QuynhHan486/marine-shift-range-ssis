@@ -1,0 +1,379 @@
+Microsoft (R) SQL Server Execute Package Utility
+Version 17.0.1000.7 for 64-bit
+Copyright (C) 2025 Microsoft. All rights reserved.
+
+Started:  11:35:03 AM
+Info: 2026-10-08 11:35:03.71
+   Code: 0x4004300A
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Validation phase is beginning.
+End Info
+Warning: 2026-10-08 11:35:03.75
+   Code: 0x80049304
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Warning: Could not open global shared memory to communicate with performance DLL; data flow performance counters are not available.  To resolve, run this package as an administrator, or on the system's console.
+End Warning
+Info: 2026-10-08 11:35:03.76
+   Code: 0x40043006
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Prepare for Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:03.76
+   Code: 0x40043007
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Pre-Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:03.78
+   Code: 0x402090DC
+   Source: DFT CSV to Raw Staging Flat File Source [2]
+   Description: The processing of file "<REPO>\data\occurrence_clean.csv" has started.
+End Info
+Info: 2026-10-08 11:35:03.78
+   Code: 0x4020F42C
+   Source: DFT CSV to Raw Staging OLE DB Destination [107]
+   Description: The Maximum insert commit size property of the OLE DB destination "OLE DB Destination" is set to 0. This property setting can cause the running package to stop responding. For more information, see the F1 Help topic for OLE DB Destination Editor (Connection Manager Page).
+End Info
+Info: 2026-10-08 11:35:03.78
+   Code: 0x4004300C
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:05.02
+   Code: 0x402090DE
+   Source: DFT CSV to Raw Staging Flat File Source [2]
+   Description: The total number of data rows processed for file "<REPO>\data\occurrence_clean.csv" is 108681.
+End Info
+Info: 2026-10-08 11:35:05.06
+   Code: 0x402090DF
+   Source: DFT CSV to Raw Staging OLE DB Destination [107]
+   Description: The final commit for the data insertion in "OLE DB Destination" has started.
+End Info
+Info: 2026-10-08 11:35:05.06
+   Code: 0x402090E0
+   Source: DFT CSV to Raw Staging OLE DB Destination [107]
+   Description: The final commit for the data insertion  in "OLE DB Destination" has ended.
+End Info
+Info: 2026-10-08 11:35:05.06
+   Code: 0x40043008
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Post Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:05.06
+   Code: 0x402090DD
+   Source: DFT CSV to Raw Staging Flat File Source [2]
+   Description: The processing of file "<REPO>\data\occurrence_clean.csv" has ended.
+End Info
+Info: 2026-10-08 11:35:05.06
+   Code: 0x4004300B
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: "OLE DB Destination" wrote 108680 rows.
+End Info
+Info: 2026-10-08 11:35:05.06
+   Code: 0x40043009
+   Source: DFT CSV to Raw Staging SSIS.Pipeline
+   Description: Cleanup phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.63
+   Code: 0x4004300A
+   Source: DFT Load Dim_Date SSIS.Pipeline
+   Description: Validation phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.74
+   Code: 0x40043006
+   Source: DFT Load Dim_Date SSIS.Pipeline
+   Description: Prepare for Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.75
+   Code: 0x40043007
+   Source: DFT Load Dim_Date SSIS.Pipeline
+   Description: Pre-Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.76
+   Code: 0x4020F42C
+   Source: DFT Load Dim_Date OLE DB Destination [2]
+   Description: The Maximum insert commit size property of the OLE DB destination "OLE DB Destination" is set to 0. This property setting can cause the running package to stop responding. For more information, see the F1 Help topic for OLE DB Destination Editor (Connection Manager Page).
+End Info
+Info: 2026-10-08 11:35:14.80
+   Code: 0x4004300C
+   Source: DFT Load Dim_Date SSIS.Pipeline
+   Description: Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.81
+   Code: 0x402090DF
+   Source: DFT Load Dim_Date OLE DB Destination [2]
+   Description: The final commit for the data insertion in "OLE DB Destination" has started.
+End Info
+Info: 2026-10-08 11:35:14.82
+   Code: 0x402090E0
+   Source: DFT Load Dim_Date OLE DB Destination [2]
+   Description: The final commit for the data insertion  in "OLE DB Destination" has ended.
+End Info
+Info: 2026-10-08 11:35:14.83
+   Code: 0x40043008
+   Source: DFT Load Dim_Date SSIS.Pipeline
+   Description: Post Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.83
+   Code: 0x4004300B
+   Source: DFT Load Dim_Date SSIS.Pipeline
+   Description: "OLE DB Destination" wrote 2314 rows.
+End Info
+Info: 2026-10-08 11:35:14.83
+   Code: 0x40043009
+   Source: DFT Load Dim_Date SSIS.Pipeline
+   Description: Cleanup phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.83
+   Code: 0x4004300A
+   Source: DFT Load Dim_Taxon SSIS.Pipeline
+   Description: Validation phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.86
+   Code: 0x40043006
+   Source: DFT Load Dim_Taxon SSIS.Pipeline
+   Description: Prepare for Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.87
+   Code: 0x40043007
+   Source: DFT Load Dim_Taxon SSIS.Pipeline
+   Description: Pre-Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:14.87
+   Code: 0x4020F42C
+   Source: DFT Load Dim_Taxon OLE DB Destination [2]
+   Description: The Maximum insert commit size property of the OLE DB destination "OLE DB Destination" is set to 0. This property setting can cause the running package to stop responding. For more information, see the F1 Help topic for OLE DB Destination Editor (Connection Manager Page).
+End Info
+Info: 2026-10-08 11:35:15.19
+   Code: 0x4004300C
+   Source: DFT Load Dim_Taxon SSIS.Pipeline
+   Description: Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:15.24
+   Code: 0x402090DF
+   Source: DFT Load Dim_Taxon OLE DB Destination [2]
+   Description: The final commit for the data insertion in "OLE DB Destination" has started.
+End Info
+Info: 2026-10-08 11:35:15.29
+   Code: 0x402090E0
+   Source: DFT Load Dim_Taxon OLE DB Destination [2]
+   Description: The final commit for the data insertion  in "OLE DB Destination" has ended.
+End Info
+Info: 2026-10-08 11:35:15.29
+   Code: 0x40043008
+   Source: DFT Load Dim_Taxon SSIS.Pipeline
+   Description: Post Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:15.29
+   Code: 0x4004300B
+   Source: DFT Load Dim_Taxon SSIS.Pipeline
+   Description: "OLE DB Destination" wrote 7737 rows.
+End Info
+Info: 2026-10-08 11:35:15.29
+   Code: 0x40043009
+   Source: DFT Load Dim_Taxon SSIS.Pipeline
+   Description: Cleanup phase is beginning.
+End Info
+Info: 2026-10-08 11:35:15.29
+   Code: 0x4004300A
+   Source: DFT Load Dim_Location SSIS.Pipeline
+   Description: Validation phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.11
+   Code: 0x40043006
+   Source: DFT Load Dim_Location SSIS.Pipeline
+   Description: Prepare for Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.12
+   Code: 0x40043007
+   Source: DFT Load Dim_Location SSIS.Pipeline
+   Description: Pre-Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.12
+   Code: 0x4020F42C
+   Source: DFT Load Dim_Location OLE DB Destination [2]
+   Description: The Maximum insert commit size property of the OLE DB destination "OLE DB Destination" is set to 0. This property setting can cause the running package to stop responding. For more information, see the F1 Help topic for OLE DB Destination Editor (Connection Manager Page).
+End Info
+Info: 2026-10-08 11:35:16.36
+   Code: 0x4004300C
+   Source: DFT Load Dim_Location SSIS.Pipeline
+   Description: Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.38
+   Code: 0x402090DF
+   Source: DFT Load Dim_Location OLE DB Destination [2]
+   Description: The final commit for the data insertion in "OLE DB Destination" has started.
+End Info
+Info: 2026-10-08 11:35:16.40
+   Code: 0x402090E0
+   Source: DFT Load Dim_Location OLE DB Destination [2]
+   Description: The final commit for the data insertion  in "OLE DB Destination" has ended.
+End Info
+Info: 2026-10-08 11:35:16.40
+   Code: 0x40043008
+   Source: DFT Load Dim_Location SSIS.Pipeline
+   Description: Post Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.40
+   Code: 0x4004300B
+   Source: DFT Load Dim_Location SSIS.Pipeline
+   Description: "OLE DB Destination" wrote 3067 rows.
+End Info
+Info: 2026-10-08 11:35:16.40
+   Code: 0x40043009
+   Source: DFT Load Dim_Location SSIS.Pipeline
+   Description: Cleanup phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.40
+   Code: 0x4004300A
+   Source: DFT Load Dim_Depth_Band SSIS.Pipeline
+   Description: Validation phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.41
+   Code: 0x40043006
+   Source: DFT Load Dim_Depth_Band SSIS.Pipeline
+   Description: Prepare for Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.41
+   Code: 0x40043007
+   Source: DFT Load Dim_Depth_Band SSIS.Pipeline
+   Description: Pre-Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.41
+   Code: 0x4020F42C
+   Source: DFT Load Dim_Depth_Band OLE DB Destination [2]
+   Description: The Maximum insert commit size property of the OLE DB destination "OLE DB Destination" is set to 0. This property setting can cause the running package to stop responding. For more information, see the F1 Help topic for OLE DB Destination Editor (Connection Manager Page).
+End Info
+Info: 2026-10-08 11:35:16.41
+   Code: 0x4004300C
+   Source: DFT Load Dim_Depth_Band SSIS.Pipeline
+   Description: Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.42
+   Code: 0x402090DF
+   Source: DFT Load Dim_Depth_Band OLE DB Destination [2]
+   Description: The final commit for the data insertion in "OLE DB Destination" has started.
+End Info
+Info: 2026-10-08 11:35:16.42
+   Code: 0x402090E0
+   Source: DFT Load Dim_Depth_Band OLE DB Destination [2]
+   Description: The final commit for the data insertion  in "OLE DB Destination" has ended.
+End Info
+Info: 2026-10-08 11:35:16.42
+   Code: 0x40043008
+   Source: DFT Load Dim_Depth_Band SSIS.Pipeline
+   Description: Post Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.42
+   Code: 0x4004300B
+   Source: DFT Load Dim_Depth_Band SSIS.Pipeline
+   Description: "OLE DB Destination" wrote 5 rows.
+End Info
+Info: 2026-10-08 11:35:16.42
+   Code: 0x40043009
+   Source: DFT Load Dim_Depth_Band SSIS.Pipeline
+   Description: Cleanup phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.43
+   Code: 0x4004300A
+   Source: DFT Load Dim_Quality SSIS.Pipeline
+   Description: Validation phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.77
+   Code: 0x40043006
+   Source: DFT Load Dim_Quality SSIS.Pipeline
+   Description: Prepare for Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.77
+   Code: 0x40043007
+   Source: DFT Load Dim_Quality SSIS.Pipeline
+   Description: Pre-Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.87
+   Code: 0x4020F42C
+   Source: DFT Load Dim_Quality OLE DB Destination [2]
+   Description: The Maximum insert commit size property of the OLE DB destination "OLE DB Destination" is set to 0. This property setting can cause the running package to stop responding. For more information, see the F1 Help topic for OLE DB Destination Editor (Connection Manager Page).
+End Info
+Info: 2026-10-08 11:35:16.87
+   Code: 0x4004300C
+   Source: DFT Load Dim_Quality SSIS.Pipeline
+   Description: Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.87
+   Code: 0x402090DF
+   Source: DFT Load Dim_Quality OLE DB Destination [2]
+   Description: The final commit for the data insertion in "OLE DB Destination" has started.
+End Info
+Info: 2026-10-08 11:35:16.87
+   Code: 0x402090E0
+   Source: DFT Load Dim_Quality OLE DB Destination [2]
+   Description: The final commit for the data insertion  in "OLE DB Destination" has ended.
+End Info
+Info: 2026-10-08 11:35:16.88
+   Code: 0x40043008
+   Source: DFT Load Dim_Quality SSIS.Pipeline
+   Description: Post Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.88
+   Code: 0x4004300B
+   Source: DFT Load Dim_Quality SSIS.Pipeline
+   Description: "OLE DB Destination" wrote 26 rows.
+End Info
+Info: 2026-10-08 11:35:16.88
+   Code: 0x40043009
+   Source: DFT Load Dim_Quality SSIS.Pipeline
+   Description: Cleanup phase is beginning.
+End Info
+Info: 2026-10-08 11:35:16.88
+   Code: 0x4004300A
+   Source: DFT Load Fact_Occurrence SSIS.Pipeline
+   Description: Validation phase is beginning.
+End Info
+Info: 2026-10-08 11:35:17.01
+   Code: 0x40043006
+   Source: DFT Load Fact_Occurrence SSIS.Pipeline
+   Description: Prepare for Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:17.02
+   Code: 0x40043007
+   Source: DFT Load Fact_Occurrence SSIS.Pipeline
+   Description: Pre-Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:17.02
+   Code: 0x4020F42C
+   Source: DFT Load Fact_Occurrence OLE DB Destination [2]
+   Description: The Maximum insert commit size property of the OLE DB destination "OLE DB Destination" is set to 0. This property setting can cause the running package to stop responding. For more information, see the F1 Help topic for OLE DB Destination Editor (Connection Manager Page).
+End Info
+Info: 2026-10-08 11:35:17.10
+   Code: 0x4004300C
+   Source: DFT Load Fact_Occurrence SSIS.Pipeline
+   Description: Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:17.79
+   Code: 0x402090DF
+   Source: DFT Load Fact_Occurrence OLE DB Destination [2]
+   Description: The final commit for the data insertion in "OLE DB Destination" has started.
+End Info
+Info: 2026-10-08 11:35:18.43
+   Code: 0x402090E0
+   Source: DFT Load Fact_Occurrence OLE DB Destination [2]
+   Description: The final commit for the data insertion  in "OLE DB Destination" has ended.
+End Info
+Info: 2026-10-08 11:35:18.43
+   Code: 0x40043008
+   Source: DFT Load Fact_Occurrence SSIS.Pipeline
+   Description: Post Execute phase is beginning.
+End Info
+Info: 2026-10-08 11:35:18.43
+   Code: 0x4004300B
+   Source: DFT Load Fact_Occurrence SSIS.Pipeline
+   Description: "OLE DB Destination" wrote 108680 rows.
+End Info
+Info: 2026-10-08 11:35:18.43
+   Code: 0x40043009
+   Source: DFT Load Fact_Occurrence SSIS.Pipeline
+   Description: Cleanup phase is beginning.
+End Info
+DTExec: The package execution returned DTSER_SUCCESS (0).
+Started:  11:35:03 AM
+Finished: 11:35:29 AM
+Elapsed:  26.5 seconds

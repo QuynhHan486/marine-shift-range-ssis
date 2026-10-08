@@ -1,0 +1,4 @@
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+validation published_batch      fact_rows            occurrence_sum
+---------- -------------------- -------------------- --------------------
+PASS                          5               108680               108680
