@@ -1,0 +1,33 @@
+-- Q07. Năm ô lưới có nhiều loài nhất mỗi thập kỷ
+-- GENERATE emits decade+grid tuples, so each decade gets its own ranking.
+-- Sampled Sites counts coordinate pairs, not location surrogate IDs.
+-- TOPCOUNT excludes remaining ties; only cells with at least one identified species qualify.
+
+WITH
+SET [Known Species] AS
+    EXCEPT([Taxon].[Species].[Species].MEMBERS,
+           {[Taxon].[Species].&[__UNKNOWN__]})
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Sampled Sites] AS
+    COUNT(NONEMPTY(EXISTING [Location].[Coordinates].[Coordinates].MEMBERS,
+                   {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+SELECT
+    {[Measures].[Recorded Species], [Measures].[Record Count],
+     [Measures].[Sampled Sites]} ON COLUMNS,
+    GENERATE(
+        [Date].[Decade].[Decade].MEMBERS,
+        TOPCOUNT(
+            FILTER(
+                NONEMPTY({[Date].[Decade].CURRENTMEMBER}
+                         * [Location].[Grid Cell].[Grid Cell].MEMBERS,
+                         {[Measures].[Record Count]}),
+                [Measures].[Recorded Species] > 0),
+            5, [Measures].[Recorded Species])
+    ) ON ROWS
+FROM [Marine Range Shift];

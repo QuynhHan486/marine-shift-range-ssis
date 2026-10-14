@@ -1,0 +1,41 @@
+-- Q10. Biến động số loài từ 15 độ Bắc theo thập kỷ
+-- Decade level must contain every decade and be sorted by numeric key.
+-- First decade and comparisons with no observations return NULL.
+-- Latitude-band keys 15 and 20 cover >=15N in the study area.
+
+WITH
+SET [Known Species] AS
+    EXCEPT([Taxon].[Species].[Species].MEMBERS,
+           {[Taxon].[Species].&[__UNKNOWN__]})
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Previous Decade Species] AS
+    IIF([Date].[Decade].CURRENTMEMBER IS [Date].[Decade].&[1980],
+        NULL,
+        IIF(([Measures].[Record Count], [Date].[Decade].CURRENTMEMBER.LAG(1)) > 0,
+            ([Measures].[Recorded Species], [Date].[Decade].CURRENTMEMBER.LAG(1)), NULL)),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Species Change] AS
+    IIF([Measures].[Record Count] > 0 AND
+        NOT ISEMPTY([Measures].[Previous Decade Species]),
+        [Measures].[Recorded Species] - [Measures].[Previous Decade Species], NULL),
+    FORMAT_STRING = "+#,##0;-#,##0;0"
+
+MEMBER [Measures].[Species Change Pct] AS
+    IIF([Measures].[Record Count] > 0 AND
+        [Measures].[Previous Decade Species] > 0 AND
+        NOT ISEMPTY([Measures].[Species Change]),
+        [Measures].[Species Change] / [Measures].[Previous Decade Species], NULL),
+    FORMAT_STRING = "0.00%"
+
+SELECT
+    {[Measures].[Recorded Species], [Measures].[Previous Decade Species],
+     [Measures].[Species Change], [Measures].[Species Change Pct],
+     [Measures].[Record Count]} ON COLUMNS,
+    [Date].[Decade].[Decade].MEMBERS ON ROWS
+FROM [Marine Range Shift]
+WHERE ({[Location].[Latitude Band].&[15], [Location].[Latitude Band].&[20]});

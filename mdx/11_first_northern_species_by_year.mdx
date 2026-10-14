@@ -1,0 +1,36 @@
+-- Q11. Loài mới được ghi nhận và loài tích lũy từ 20 độ Bắc
+-- First means first within the dataset/northern slice, not first arrival.
+-- Count the union of species across years; do not SUM annual richness.
+-- Do not apply current-year EXISTING to the cumulative species enumeration.
+-- Year members start at 1980, ordered by numeric key, including years without observations.
+
+WITH
+SET [Known Species] AS
+    EXCEPT([Taxon].[Species].[Species].MEMBERS,
+           {[Taxon].[Species].&[__UNKNOWN__]})
+
+MEMBER [Measures].[Cumulative Northern Species] AS
+    COUNT(NONEMPTY(
+        [Known Species],
+        {[Date].[Year].&[1980]:[Date].[Year].CURRENTMEMBER}
+        * {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[New Northern Species] AS
+    [Measures].[Cumulative Northern Species]
+    - IIF([Date].[Year].CURRENTMEMBER IS [Date].[Year].&[1980],
+          0,
+          ([Measures].[Cumulative Northern Species], [Date].[Year].CURRENTMEMBER.LAG(1))),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Sampled Sites] AS
+    COUNT(NONEMPTY(EXISTING [Location].[Coordinates].[Coordinates].MEMBERS,
+                   {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+SELECT
+    {[Measures].[New Northern Species], [Measures].[Cumulative Northern Species],
+     [Measures].[Record Count], [Measures].[Sampled Sites]} ON COLUMNS,
+    [Date].[Year].[Year].MEMBERS ON ROWS
+FROM [Marine Range Shift]
+WHERE ([Location].[Latitude Band].&[20]);

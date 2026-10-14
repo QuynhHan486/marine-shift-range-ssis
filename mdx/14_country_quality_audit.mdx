@@ -1,0 +1,29 @@
+-- Q14. Kiểm toán chất lượng đầu vào đã làm sạch theo quốc gia
+-- On-land is a flag, not a confirmed error. Unknown status is not absence.
+-- Calculated percentages are not extra physical Fact columns.
+
+WITH
+MEMBER [Measures].[On Land Records] AS
+    COALESCEEMPTY(([Measures].[Record Count], [Quality].[On Land].&[1]), 0),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Present Records] AS
+    COALESCEEMPTY(([Measures].[Record Count], [Quality].[Occurrence Status].&[present]), 0),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[On Land Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY([Measures].[On Land Records], 0) / [Measures].[Record Count], NULL),
+    FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[Present Status Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY([Measures].[Present Records], 0) / [Measures].[Record Count], NULL),
+    FORMAT_STRING = "0.00%"
+
+SELECT
+    {[Measures].[Record Count], [Measures].[On Land Records], [Measures].[On Land Pct],
+     [Measures].[Present Records], [Measures].[Present Status Pct]} ON COLUMNS,
+    NONEMPTY([Location].[Country].[Country].MEMBERS,
+             {[Measures].[Record Count]}) ON ROWS
+FROM [Marine Range Shift];

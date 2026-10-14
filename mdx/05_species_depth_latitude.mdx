@@ -1,0 +1,18 @@
+-- Q05. Số loài theo dải độ sâu và dải vĩ độ
+-- Band 0 means Unknown depth and is retained.
+
+WITH
+SET [Known Species] AS
+    EXCEPT([Taxon].[Species].[Species].MEMBERS,
+           {[Taxon].[Species].&[__UNKNOWN__]})
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+SELECT
+    {[Measures].[Recorded Species], [Measures].[Record Count]} ON COLUMNS,
+    NONEMPTY([Depth Band].[Band].[Band].MEMBERS
+             * [Location].[Latitude Band].[Latitude Band].MEMBERS,
+             {[Measures].[Record Count]}) ON ROWS
+FROM [Marine Range Shift];

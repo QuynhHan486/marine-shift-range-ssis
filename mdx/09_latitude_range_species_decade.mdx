@@ -1,0 +1,25 @@
+-- Q09. Biên độ vĩ độ ghi nhận của loài theo thập kỷ
+-- Basic version: one-record groups can have zero span. Interpret with counts/sites.
+
+WITH
+SET [Known Species] AS
+    EXCEPT([Taxon].[Species].[Species].MEMBERS,
+           {[Taxon].[Species].&[__UNKNOWN__]})
+
+MEMBER [Measures].[Sampled Sites] AS
+    COUNT(NONEMPTY(EXISTING [Location].[Coordinates].[Coordinates].MEMBERS,
+                   {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Latitude Range] AS
+    IIF([Measures].[Record Count] > 0,
+        [Measures].[Latitude Maximum] - [Measures].[Latitude Minimum], NULL),
+    FORMAT_STRING = "0.0000"
+
+SELECT
+    {[Measures].[Latitude Minimum], [Measures].[Latitude Maximum],
+     [Measures].[Latitude Range], [Measures].[Record Count],
+     [Measures].[Sampled Sites]} ON COLUMNS,
+    NONEMPTY([Known Species] * [Date].[Decade].[Decade].MEMBERS,
+             {[Measures].[Record Count]}) ON ROWS
+FROM [Marine Range Shift];

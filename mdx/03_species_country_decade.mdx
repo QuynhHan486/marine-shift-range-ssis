@@ -1,0 +1,18 @@
+-- Q03. Số loài theo quốc gia và thập kỷ
+-- Country __UNKNOWN__ is an ordinary visible member and is included.
+
+WITH
+SET [Known Species] AS
+    EXCEPT([Taxon].[Species].[Species].MEMBERS,
+           {[Taxon].[Species].&[__UNKNOWN__]})
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+SELECT
+    {[Measures].[Recorded Species], [Measures].[Record Count]} ON COLUMNS,
+    NONEMPTY([Location].[Country].[Country].MEMBERS
+             * [Date].[Decade].[Decade].MEMBERS,
+             {[Measures].[Record Count]}) ON ROWS
+FROM [Marine Range Shift];
