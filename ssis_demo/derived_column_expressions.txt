@@ -1,0 +1,95 @@
+country_text
+(DT_WSTR,128)(ISNULL(country) ? "" : TRIM(country))
+
+status_text
+(DT_WSTR,16)(ISNULL(occurrenceStatus) ? "" : LOWER(TRIM(occurrenceStatus)))
+
+depth_text
+(DT_WSTR,64)(ISNULL(depth) ? "" : TRIM(depth))
+
+sst_text
+(DT_WSTR,64)(ISNULL(sst) ? "" : TRIM(sst))
+
+sss_text
+(DT_WSTR,64)(ISNULL(sss) ? "" : TRIM(sss))
+
+count_text
+(DT_WSTR,64)(ISNULL(individualCount) ? "" : TRIM(individualCount))
+
+shore_text
+(DT_WSTR,64)(ISNULL(shoredistance) ? "" : TRIM(shoredistance))
+
+flags_text
+(DT_WSTR,512)(ISNULL(flags) ? "[]" : (TRIM(flags)=="" ? "[]" : TRIM(flags)))
+
+date_text
+(DT_WSTR,10)TRIM(eventDate)
+
+occurrence_id
+(DT_WSTR,64)TRIM(id)
+
+v_scientificName
+(DT_WSTR,256)TRIM(scientificName)
+
+v_lat
+(DT_NUMERIC,14,10)decimalLatitude
+
+v_lon
+(DT_NUMERIC,14,10)decimalLongitude
+
+v_shore
+shore_text=="" ? NULL(DT_NUMERIC,14,4) : (DT_NUMERIC,14,4)shore_text
+
+v_depth
+depth_text=="" ? NULL(DT_NUMERIC,20,10) : (DT_NUMERIC,20,10)depth_text
+
+v_sst
+sst_text=="" ? NULL(DT_NUMERIC,8,4) : (DT_NUMERIC,8,4)sst_text
+
+v_sss
+sss_text=="" ? NULL(DT_NUMERIC,8,4) : (DT_NUMERIC,8,4)sss_text
+
+v_count
+count_text=="" ? NULL(DT_NUMERIC,18,4) : (DT_NUMERIC,18,4)count_text
+
+v_country
+country_text=="" ? NULL(DT_WSTR,128) : (DT_WSTR,128)country_text
+
+v_status
+status_text=="" ? NULL(DT_WSTR,16) : (DT_WSTR,16)status_text
+
+v_land
+UPPER(TRIM(flag_on_land))=="TRUE"
+
+date_iso
+TOKEN(date_text,"/",3)+"-"+RIGHT("0"+TOKEN(date_text,"/",2),2)+"-"+RIGHT("0"+TOKEN(date_text,"/",1),2)
+
+date_id
+(DT_I4)REPLACE(date_iso,"-","")
+
+latitude_band_calc
+(DT_WSTR,16)(v_lat<5 ? "0-5°N" : (v_lat<10 ? "5-10°N" : (v_lat<15 ? "10-15°N" : (v_lat<20 ? "15-20°N" : "20-23°N"))))
+
+grid_cell_calc
+(DT_WSTR,32)((DT_WSTR,4)(DT_I4)FLOOR(v_lat)+"N_"+(DT_WSTR,4)(DT_I4)FLOOR(v_lon)+"E")
+
+sst_group_calc
+(DT_WSTR,32)(ISNULL(v_sst) ? "Unknown" : (v_sst<25 ? "<25" : (v_sst<27 ? "25-27" : (v_sst<29 ? "27-29" : ">=29"))))
+
+sss_group_calc
+(DT_WSTR,32)(ISNULL(v_sss) ? "Unknown" : (v_sss<30 ? "<30" : (v_sss<32 ? "30-32" : ">=32")))
+
+shore_group_calc
+(DT_WSTR,32)(ISNULL(v_shore) ? "Unknown" : (v_shore<0 ? "Inland" : (v_shore<10000 ? "0-10 km" : (v_shore<50000 ? "10-50 km" : ">=50 km"))))
+
+depth_band_id
+ISNULL(v_depth) ? 0 : (v_depth<50 ? 1 : (v_depth<200 ? 2 : (v_depth<1000 ? 3 : 4)))
+
+location_key
+(DT_WSTR,512)(TRIM(decimalLatitude)+"|"+TRIM(decimalLongitude)+"|"+(country_text=="" ? "<NULL>" : country_text)+"|"+(shore_text=="" ? "<NULL>" : shore_text)+"|"+(sst_text=="" ? "<NULL>" : sst_text)+"|"+(sss_text=="" ? "<NULL>" : sss_text))
+
+quality_key
+(DT_WSTR,512)((v_land ? "1" : "0")+"|"+flags_text+"|"+(status_text=="" ? "<NULL>" : status_text))
+
+occurrence_count
+(DT_I4)1
