@@ -1,0 +1,137 @@
+<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="40043435-87e1-4dec-a842-d2ff861a6050" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Dim Depth Band</ID>
+  <Name>Dim Depth Band</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="00bef66f-0805-47b4-90f7-cd455e7f2521">
+    <DataSourceViewID>MARINE SHIFT RANGE DW</DataSourceViewID>
+  </Source>
+  <ErrorConfiguration dwd:design-time-name="faa689c1-e0d7-47bb-9d8b-4366743677d3">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <UnknownMember>Visible</UnknownMember><Attributes>
+    <Attribute dwd:design-time-name="f089ba50-7227-4566-94a9-15a38c743afe">
+      <ID>Id</ID>
+      <Name>Id</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="91158f72-3ab8-49a7-95cb-ed07d9c01876">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="cf32a011-3948-4b62-9123-e54788fb842f">
+            <TableID>dbo_Dim_Depth_Band</TableID>
+            <ColumnID>id</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="ed2931ac-c8ca-4b29-a182-8653f7d1c1af">
+          <AttributeID>Depth Band</AttributeID>
+          <Name>Depth Band</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="9952b3a3-2f4e-48b9-8b0a-03a3a2064f9e">
+          <AttributeID>Depth Min M</AttributeID>
+          <Name>Depth Min M</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="9bf68e79-8960-42cc-a6ae-755d5d48974f">
+          <AttributeID>Depth Max M</AttributeID>
+          <Name>Depth Max M</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="48fc268d-e72f-464e-ad7a-9fccf41449de">
+      <ID>Depth Band</ID>
+      <Name>Depth Band</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="9ba7923c-5d0a-4204-ab21-832c0d45a092">
+          <DataType>WChar</DataType>
+          <DataSize>64</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a0afa59a-b219-49b9-b01b-c8c834e249b5">
+            <TableID>dbo_Dim_Depth_Band</TableID>
+            <ColumnID>depth_band</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="52ca0086-ca41-4aec-bd4b-2fc33c5d1774">
+      <ID>Depth Min M</ID>
+      <Name>Depth Min M</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="19c62cc0-ca63-4bd5-8626-6f34682c854a">
+          <DataType>Integer</DataType>
+          <NullProcessing>UnknownMember</NullProcessing><Source xsi:type="ColumnBinding" dwd:design-time-name="0eb97658-c9be-49c2-94ff-ac0b7c62c318">
+            <TableID>dbo_Dim_Depth_Band</TableID>
+            <ColumnID>depth_min_m</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="8d7918ff-1a95-460f-acb9-79d95021aa82">
+      <ID>Depth Max M</ID>
+      <Name>Depth Max M</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="9d1b7b45-8125-4334-9ff1-237420bbcd2b">
+          <DataType>Integer</DataType>
+          <NullProcessing>UnknownMember</NullProcessing><Source xsi:type="ColumnBinding" dwd:design-time-name="3ad711c6-94fe-43c8-bd22-d576ae2c8993">
+            <TableID>dbo_Dim_Depth_Band</TableID>
+            <ColumnID>depth_max_m</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>

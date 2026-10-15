@@ -1,0 +1,145 @@
+-- Q01. Độ đầy đủ và cờ chất lượng theo thập kỷ
+-- Verified against the deployed [MARINE SHIFT RANGE DW] cube.
+-- Taxonomy completeness uses standardized dbo.Dim_Taxon, not raw source taxonomy.
+-- Sites are distinct coordinate pairs, not location surrogate keys.
+-- Requires UnknownMember for nullable Sst/Sss attribute keys; configured in Dim Location.
+-- Execute this complete statement in SSMS: Analysis Services / MARINE_SHIFT_RANGE_SSAS.
+
+WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
+SET [Known Species] AS
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
+
+SET [Complete Taxa] AS
+    FILTER([Dim Taxon].[Id].[Id].MEMBERS,
+        LEN(TRIM([Dim Taxon].[Id].CURRENTMEMBER.PROPERTIES("Kingdom"))) > 0
+        AND LEN(TRIM([Dim Taxon].[Id].CURRENTMEMBER.PROPERTIES("Phylum"))) > 0
+        AND LEN(TRIM([Dim Taxon].[Id].CURRENTMEMBER.PROPERTIES("Class"))) > 0
+        AND LEN(TRIM([Dim Taxon].[Id].CURRENTMEMBER.PROPERTIES("Order"))) > 0
+        AND LEN(TRIM([Dim Taxon].[Id].CURRENTMEMBER.PROPERTIES("Family"))) > 0
+        AND LEN(TRIM([Dim Taxon].[Id].CURRENTMEMBER.PROPERTIES("Genus"))) > 0
+        AND LEN(TRIM([Dim Taxon].[Id].CURRENTMEMBER.PROPERTIES("Species"))) > 0)
+
+SET [Coordinate Pairs] AS
+    [Dim Location].[Decimal Latitude].[Decimal Latitude].MEMBERS
+    * [Dim Location].[Decimal Longitude].[Decimal Longitude].MEMBERS
+
+SET [Known Countries] AS
+    FILTER([Dim Location].[Country].[Country].MEMBERS,
+           LEN(TRIM([Dim Location].[Country].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
+
+SET [Known SST Values] AS
+    EXCEPT([Dim Location].[Sst].[Sst].MEMBERS,
+           {[Dim Location].[Sst].UNKNOWNMEMBER})
+
+SET [Known SSS Values] AS
+    EXCEPT([Dim Location].[Sss].[Sss].MEMBERS,
+           {[Dim Location].[Sss].UNKNOWNMEMBER})
+
+SET [Flagged Quality] AS
+    FILTER([Dim Quality].[Id].[Id].MEMBERS,
+        LEN(TRIM([Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flags"))) > 0
+        AND TRIM([Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flags")) <> "[]")
+
+SET [On Land Quality] AS
+    FILTER([Dim Quality].[Id].[Id].MEMBERS,
+        [Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flag On Land", TYPED) <> 0)
+
+SET [Consistent Quality] AS
+    FILTER([Dim Quality].[Id].[Id].MEMBERS,
+        IIF(INSTR(1, [Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flags"), "ON_LAND") > 0, 1, 0)
+        = IIF([Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flag On Land", TYPED) <> 0, 1, 0))
+
+SET [Depth Issue Quality] AS
+    FILTER([Dim Quality].[Id].[Id].MEMBERS,
+        INSTR(1, [Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flags"), "DEPTH_EXCEEDS_BATH") > 0
+        OR INSTR(1, [Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flags"), "DEPTH_OUT_OF_RANGE") > 0
+        OR INSTR(1, [Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flags"), "MIN_DEPTH_EXCEEDS_MAX") > 0)
+
+SET [Accepted Name Issue Quality] AS
+    FILTER([Dim Quality].[Id].[Id].MEMBERS,
+        INSTR(1, [Dim Quality].[Id].CURRENTMEMBER.PROPERTIES("Flags"), "NO_ACCEPTED_NAME") > 0)
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Sampled Sites] AS
+    COUNT(NONEMPTY(EXISTING [Coordinate Pairs], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Depth Known Records] AS
+    COALESCEEMPTY(SUM(
+        {[Dim Depth Band].[Id].&[1], [Dim Depth Band].[Id].&[2],
+         [Dim Depth Band].[Id].&[3], [Dim Depth Band].[Id].&[4]},
+        [Measures].[Record Count]), 0), FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Species Identified Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Known Species], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[Complete Taxonomy Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Complete Taxa], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[Country Known Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Known Countries], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[Depth Known Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        [Measures].[Depth Known Records] / [Measures].[Record Count], NULL),
+    FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[SST Known Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Known SST Values], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[SSS Known Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Known SSS Values], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[Flagged Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Flagged Quality], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[On Land Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([On Land Quality], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[Flag Consistency Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Consistent Quality], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[Depth Issue Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Depth Issue Quality], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+MEMBER [Measures].[Accepted Name Issue Pct] AS
+    IIF([Measures].[Record Count] > 0,
+        COALESCEEMPTY(SUM([Accepted Name Issue Quality], [Measures].[Record Count]), 0)
+        / [Measures].[Record Count], NULL), FORMAT_STRING = "0.00%"
+
+SELECT
+    {[Measures].[Record Count], [Measures].[Recorded Species], [Measures].[Sampled Sites],
+     [Measures].[Species Identified Pct], [Measures].[Complete Taxonomy Pct],
+     [Measures].[Country Known Pct], [Measures].[Depth Known Pct],
+     [Measures].[SST Known Pct], [Measures].[SSS Known Pct],
+     [Measures].[Flagged Pct], [Measures].[On Land Pct],
+     [Measures].[Flag Consistency Pct], [Measures].[Depth Issue Pct],
+     [Measures].[Accepted Name Issue Pct]} ON COLUMNS,
+    NONEMPTY([Dim Date].[Decade].[Decade].MEMBERS,
+             {[Measures].[Record Count]}) ON ROWS
+FROM [MARINE SHIFT RANGE DW];

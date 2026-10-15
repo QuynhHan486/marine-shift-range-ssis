@@ -1,17 +1,21 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
 -- Q13. Tỷ lệ bản ghi Animalia tầng sâu trong số bản ghi biết độ sâu
 -- Numerator includes bands 3+4 (>=200m); denominator excludes Unknown.
 -- No known depths means NULL percentage, not 0 percent.
 
 WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
 MEMBER [Measures].[Depth Known Records] AS
     COALESCEEMPTY(SUM(
-        {[Depth Band].[Band].&[1], [Depth Band].[Band].&[2],
-         [Depth Band].[Band].&[3], [Depth Band].[Band].&[4]},
+        {[Dim Depth Band].[Id].&[1], [Dim Depth Band].[Id].&[2],
+         [Dim Depth Band].[Id].&[3], [Dim Depth Band].[Id].&[4]},
         [Measures].[Record Count]), 0),
     FORMAT_STRING = "#,##0"
 
 MEMBER [Measures].[Deep Records] AS
-    COALESCEEMPTY(SUM({[Depth Band].[Band].&[3], [Depth Band].[Band].&[4]},
+    COALESCEEMPTY(SUM({[Dim Depth Band].[Id].&[3], [Dim Depth Band].[Id].&[4]},
                      [Measures].[Record Count]), 0),
     FORMAT_STRING = "#,##0"
 
@@ -29,8 +33,8 @@ SELECT
     {[Measures].[Record Count], [Measures].[Depth Known Records],
      [Measures].[Deep Records], [Measures].[Deep Record Pct],
      [Measures].[Depth Known Pct]} ON COLUMNS,
-    NONEMPTY([Date].[Decade].[Decade].MEMBERS
-             * [Location].[Latitude Band].[Latitude Band].MEMBERS,
+    NONEMPTY([Dim Date].[Decade].[Decade].MEMBERS
+             * [Dim Location].[Latitude Band].[Latitude Band].MEMBERS,
              {[Measures].[Record Count]}) ON ROWS
-FROM [Marine Range Shift]
-WHERE ([Taxon].[Kingdom].&[Animalia]);
+FROM [MARINE SHIFT RANGE DW]
+WHERE ([Dim Taxon].[Kingdom].&[Animalia]);

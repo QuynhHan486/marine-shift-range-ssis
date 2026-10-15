@@ -1,0 +1,39 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
+-- Q04. Ba lớp Animalia có nhiều loài nhất trong lát cắt đã chọn
+-- Rank once across pooled decades/bands, then compare the same three classes.
+-- Subselect restricts real members before TOPCOUNT; never sum slice-specific richness.
+
+WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
+SET [Known Species] AS
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+SET [Known Classes] AS
+    FILTER([Dim Taxon].[Class].[Class].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Class].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
+
+SET [Top Three Classes] AS
+    TOPCOUNT(NONEMPTY([Known Classes], {[Measures].[Record Count]}),
+             3, [Measures].[Recorded Species])
+
+SELECT
+    {[Measures].[Recorded Species], [Measures].[Record Count]} ON COLUMNS,
+    NONEMPTY([Top Three Classes]
+             * {[Dim Date].[Decade].&[2000s], [Dim Date].[Decade].&[2010s]}
+             * {[Dim Location].[Latitude Band].&[10-15°N], [Dim Location].[Latitude Band].&[20-23°N]},
+             {[Measures].[Record Count]}) ON ROWS
+FROM (
+    SELECT
+        {[Dim Date].[Decade].&[2000s], [Dim Date].[Decade].&[2010s]}
+        * {[Dim Location].[Latitude Band].&[10-15°N], [Dim Location].[Latitude Band].&[20-23°N]}
+        * {[Dim Depth Band].[Id].&[1], [Dim Depth Band].[Id].&[2]} ON COLUMNS
+    FROM [MARINE SHIFT RANGE DW]
+)
+WHERE ([Dim Taxon].[Kingdom].&[Animalia]);

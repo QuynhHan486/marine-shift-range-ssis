@@ -1,4 +1,4 @@
-# Marine Shift Range SSIS
+# Marine Shift Range — SSIS và SSAS
 
 Hoàn thiện phần tích hợp dữ liệu cho đồ án **Phân tích sự thay đổi phạm vi phân bố của các loài sinh vật biển tại Biển Đông trong bối cảnh biến đổi khí hậu bằng OLAP**.
 
@@ -12,6 +12,27 @@ Package SSIS thật đã chạy trên SQL Server 2025 Standard Developer Edition
 | Dim_Depth_Band | 5 |
 | Dim_Quality | 26 |
 | Fact_Occurrence | 108.680 |
+
+## Mở dự án sau khi sắp xếp thư mục
+
+Thư mục gốc làm việc: `ProjectRepo`. Mở `MARINE_SHIFT_RANGE.slnx` để thấy cả hai project trong Visual Studio.
+
+| Thư mục | Nội dung |
+|---|---|
+| `ssis/` | Project và package SSIS; solution riêng vẫn được giữ nguyên. |
+| `ssas/` | Project SSAS multidimensional; mở riêng bằng `ssas/MARINE_SHIFT_RANGE_SSAS.slnx`. |
+| `mdx/` | 15 câu MDX đã kiểm chứng, đặt tên tiếng Việt không dấu theo câu hỏi; xem [danh sách](mdx/README.md). |
+| `sql/`, `data/` | Schema/ETL SQL và CSV nguồn của kho dữ liệu. |
+| `docs/`, `evidence/` | Tài liệu hướng dẫn và bằng chứng kiểm tra. |
+| `NeededQuery/` | Các file truy vấn local có sẵn, được giữ nguyên. |
+
+Thư mục `ssas/` trước đây nằm cạnh `ProjectRepo`; từ nay dùng bản trong repository. Khi Visual Studio đang mở solution theo vị trí cũ, đóng solution đó và mở lại đường dẫn mới. Nếu được hỏi nạp lại file đã thay đổi bên ngoài, chọn Reload.
+
+Build tại vị trí mới không thay đổi database đang chạy. Deploy trực tiếp từ extension SSAS 4.0.0 trong VS hiện còn lỗi thư viện không nhận diện edition `StandardDeveloper64`; dùng Deployment Wizard đi kèm SSMS 22 với file `ssas/bin/MARINE_SHIFT_RANGE_SSAS.asdatabase` khi cần triển khai. Bước sắp xếp thư mục không chạy lại ETL, Process hay MDX. Ở bước MDX tiếp theo, mô hình đã được bổ sung measure/thuộc tính và Process để chạy đủ 15 câu.
+
+## Bộ MDX đã kiểm chứng
+
+Dùng SSMS 22 → Analysis Services localhost → database MARINE_SHIFT_RANGE_SSAS, mở từng file trong mdx/ và nhấn F5. Cube trong FROM là [MARINE SHIFT RANGE DW]. Đã chạy 15 câu và đối chiếu 36.864 ô với warehouse. Xem [hướng dẫn MDX](docs/MDX_GUIDE.md), [kết quả kiểm chứng](docs/MDX_VALIDATED.md) và evidence/mdx-suite-validation.json. Câu 9/11 có thể mất vài chục giây. Mỗi file có tiền tố 01–15 và chứa một câu truy vấn.
 
 ## Chạy ETL
 

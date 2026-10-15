@@ -1,0 +1,34 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
+-- Q06. So sánh nhóm SST, SSS, khoảng cách đến bờ và thập kỷ
+-- Group thresholds are project conventions documented in MDX_GUIDE.md.
+-- SST/SSS are location context. Unknown environmental groups remain visible.
+-- Distance groups here exclude negative/inland and missing distances.
+
+WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
+SET [Known Species] AS
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+MEMBER [Measures].[Sampled Sites] AS
+    COUNT(NONEMPTY(EXISTING [Dim Location].[Coordinates].[Coordinates].MEMBERS,
+                   {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+SELECT
+    {[Measures].[Recorded Species], [Measures].[Record Count],
+     [Measures].[Sampled Sites]} ON COLUMNS,
+    NONEMPTY([Dim Date].[Decade].[Decade].MEMBERS
+             * [Dim Location].[Sst Group].[Sst Group].MEMBERS
+             * [Dim Location].[SSS Group].[SSS Group].MEMBERS
+             * {[Dim Location].[Shore Distance Group].&[0],
+                [Dim Location].[Shore Distance Group].&[1],
+                [Dim Location].[Shore Distance Group].&[2]},
+             {[Measures].[Record Count]}) ON ROWS
+FROM [MARINE SHIFT RANGE DW];

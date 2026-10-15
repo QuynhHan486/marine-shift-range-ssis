@@ -1,3 +1,4 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
 -- Q15. Ghi nhận và tổng individualCount theo quốc gia, vĩ độ, thập kỷ
 -- Country share denominator includes Unknown in the same latitude band/decade.
 -- Individual Count Records = SUM(1 when individualCount is non-NULL else 0).
@@ -5,17 +6,20 @@
 -- Reported count sum is not regional population size or standardized abundance.
 
 WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
 SET [Known Species] AS
-    EXCEPT([Taxon].[Species].[Species].MEMBERS,
-           {[Taxon].[Species].&[__UNKNOWN__]})
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
 
 MEMBER [Measures].[Recorded Species] AS
     COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
     FORMAT_STRING = "#,##0"
 
 MEMBER [Measures].[Country Record Share] AS
-    IIF(([Measures].[Record Count], [Location].[Country].DEFAULTMEMBER) > 0,
-        COALESCEEMPTY([Measures].[Record Count], 0) / ([Measures].[Record Count], [Location].[Country].DEFAULTMEMBER), NULL),
+    IIF(([Measures].[Record Count], [Dim Location].[Country].DEFAULTMEMBER) > 0,
+        COALESCEEMPTY([Measures].[Record Count], 0) / ([Measures].[Record Count], [Dim Location].[Country].DEFAULTMEMBER), NULL),
     FORMAT_STRING = "0.00%"
 
 MEMBER [Measures].[Individual Count Coverage] AS
@@ -32,8 +36,8 @@ SELECT
     {[Measures].[Record Count], [Measures].[Recorded Species],
      [Measures].[Country Record Share], [Measures].[Reported Count Total],
      [Measures].[Individual Count Records], [Measures].[Individual Count Coverage]} ON COLUMNS,
-    NONEMPTY([Location].[Country].[Country].MEMBERS
-             * [Location].[Latitude Band].[Latitude Band].MEMBERS
-             * [Date].[Decade].[Decade].MEMBERS,
+    NONEMPTY([Dim Location].[Country].[Country].MEMBERS
+             * [Dim Location].[Latitude Band].[Latitude Band].MEMBERS
+             * [Dim Date].[Decade].[Decade].MEMBERS,
              {[Measures].[Record Count]}) ON ROWS
-FROM [Marine Range Shift];
+FROM [MARINE SHIFT RANGE DW];

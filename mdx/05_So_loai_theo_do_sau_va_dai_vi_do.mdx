@@ -1,0 +1,22 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
+-- Q05. Số loài theo dải độ sâu và dải vĩ độ
+-- Band 0 means Unknown depth and is retained.
+
+WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
+SET [Known Species] AS
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+SELECT
+    {[Measures].[Recorded Species], [Measures].[Record Count]} ON COLUMNS,
+    NONEMPTY([Dim Depth Band].[Depth Band].[Depth Band].MEMBERS
+             * [Dim Location].[Latitude Band].[Latitude Band].MEMBERS,
+             {[Measures].[Record Count]}) ON ROWS
+FROM [MARINE SHIFT RANGE DW];

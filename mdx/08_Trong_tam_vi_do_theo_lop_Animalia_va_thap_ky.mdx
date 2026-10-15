@@ -1,14 +1,18 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
 -- Q08. Trọng tâm vĩ độ bản ghi Animalia theo lớp và thập kỷ
 -- Latitude Sum sums latitude at fact-row grain. All accepted facts have coordinates.
 
 WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
 MEMBER [Measures].[Latitude Centroid] AS
     IIF([Measures].[Record Count] > 0,
         [Measures].[Latitude Sum] / [Measures].[Record Count], NULL),
     FORMAT_STRING = "0.0000"
 
 MEMBER [Measures].[Sampled Sites] AS
-    COUNT(NONEMPTY(EXISTING [Location].[Coordinates].[Coordinates].MEMBERS,
+    COUNT(NONEMPTY(EXISTING [Dim Location].[Coordinates].[Coordinates].MEMBERS,
                    {[Measures].[Record Count]})),
     FORMAT_STRING = "#,##0"
 
@@ -16,9 +20,9 @@ SELECT
     {[Measures].[Latitude Centroid], [Measures].[Record Count],
      [Measures].[Sampled Sites]} ON COLUMNS,
     NONEMPTY(
-        EXCEPT([Taxon].[Class].[Class].MEMBERS,
-               {[Taxon].[Class].&[__UNKNOWN__]})
-        * [Date].[Decade].[Decade].MEMBERS,
+        FILTER([Dim Taxon].[Class].[Class].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Class].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
+        * [Dim Date].[Decade].[Decade].MEMBERS,
         {[Measures].[Record Count]}) ON ROWS
-FROM [Marine Range Shift]
-WHERE ([Taxon].[Kingdom].&[Animalia]);
+FROM [MARINE SHIFT RANGE DW]
+WHERE ([Dim Taxon].[Kingdom].&[Animalia]);

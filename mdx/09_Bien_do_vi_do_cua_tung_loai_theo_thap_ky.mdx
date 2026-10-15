@@ -1,13 +1,17 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
 -- Q09. Biên độ vĩ độ ghi nhận của loài theo thập kỷ
 -- Basic version: one-record groups can have zero span. Interpret with counts/sites.
 
 WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
 SET [Known Species] AS
-    EXCEPT([Taxon].[Species].[Species].MEMBERS,
-           {[Taxon].[Species].&[__UNKNOWN__]})
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
 
 MEMBER [Measures].[Sampled Sites] AS
-    COUNT(NONEMPTY(EXISTING [Location].[Coordinates].[Coordinates].MEMBERS,
+    COUNT(NONEMPTY(EXISTING [Dim Location].[Coordinates].[Coordinates].MEMBERS,
                    {[Measures].[Record Count]})),
     FORMAT_STRING = "#,##0"
 
@@ -20,6 +24,6 @@ SELECT
     {[Measures].[Latitude Minimum], [Measures].[Latitude Maximum],
      [Measures].[Latitude Range], [Measures].[Record Count],
      [Measures].[Sampled Sites]} ON COLUMNS,
-    NONEMPTY([Known Species] * [Date].[Decade].[Decade].MEMBERS,
+    NONEMPTY([Known Species] * [Dim Date].[Decade].[Decade].MEMBERS,
              {[Measures].[Record Count]}) ON ROWS
-FROM [Marine Range Shift];
+FROM [MARINE SHIFT RANGE DW];

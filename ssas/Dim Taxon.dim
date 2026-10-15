@@ -1,0 +1,429 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="7434f5b2-f25a-4163-99c9-7599a86e16d3" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Dim Taxon</ID>
+  <Name>Dim Taxon</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+      <Value>
+        <dds xmlns="">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="2" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-3483" scrolltop="-3693" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="7027" y="11853" backcolor="2039583" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+            <font>
+              <ddsxmlobjectstreamwrapper binary="010000009001b0300100065461686f6d61" />
+            </font>
+            <mouseicon>
+              <ddsxmlobjectstreamwrapper binary="6c74000000000000" />
+            </mouseicon>
+          </diagram>
+          <layoutmanager>
+            <ddsxmlobj />
+          </layoutmanager>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge" tooltip="Dim_Taxon" left="20" top="0" logicalid="1" controlid="1" masterid="0" hint1="0" hint2="0" width="3006" height="4466" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="000e0000be0b000072110000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_Dim_Taxon" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+        </dds>
+      </Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>-3483</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>-3693</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>20</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ARDiagramLayout</Name>
+      <Value>
+        <DiagramLayout ZoomPercent="100" ViewPortX="0" ViewPortY="0" xmlns="">
+          <Shapes NodeWidth="136">
+            <Shape Id="Id" Expanded="false">
+              <Attributes>
+                <Attribute Id="Id" />
+                <Attribute Id="Species" />
+                <Attribute Id="Taxon Rank" />
+              </Attributes>
+              <Position x="20" y="20" />
+            </Shape>
+            <Shape Id="Scientific Name" Expanded="false">
+              <Attributes>
+                <Attribute Id="Scientific Name" />
+              </Attributes>
+              <Position x="195" y="20" />
+            </Shape>
+            <Shape Id="Genus" Expanded="false">
+              <Attributes>
+                <Attribute Id="Genus" />
+              </Attributes>
+              <Position x="195" y="69" />
+            </Shape>
+            <Shape Id="Family" Expanded="false">
+              <Attributes>
+                <Attribute Id="Family" />
+              </Attributes>
+              <Position x="195" y="118" />
+            </Shape>
+            <Shape Id="Order" Expanded="false">
+              <Attributes>
+                <Attribute Id="Order" />
+              </Attributes>
+              <Position x="195" y="167" />
+            </Shape>
+            <Shape Id="Class" Expanded="false">
+              <Attributes>
+                <Attribute Id="Class" />
+              </Attributes>
+              <Position x="195" y="216" />
+            </Shape>
+            <Shape Id="Phylum" Expanded="false">
+              <Attributes>
+                <Attribute Id="Phylum" />
+              </Attributes>
+              <Position x="195" y="265" />
+            </Shape>
+            <Shape Id="Kingdom" Expanded="false">
+              <Attributes>
+                <Attribute Id="Kingdom" />
+              </Attributes>
+              <Position x="195" y="314" />
+            </Shape>
+          </Shapes>
+        </DiagramLayout>
+      </Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="9c586a65-f93b-4547-8f2d-8f050c2ab467">
+    <DataSourceViewID>MARINE SHIFT RANGE DW</DataSourceViewID>
+  </Source>
+  <ErrorConfiguration dwd:design-time-name="5b0c485d-9e55-443f-ad8b-839fb95f3e9b">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="7491fb84-940b-4139-a87d-d4f28aab7923">
+      <ID>Id</ID>
+      <Name>Id</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="83c3e56f-a62f-42c6-ab2d-e4f081505be3">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="dd7e961b-3b9d-4c48-a426-fb66293c2880">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>id</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="7a119f43-497a-476d-8c8d-b6e0feb6c5ce">
+          <AttributeID>Kingdom</AttributeID>
+          <Name>Kingdom</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="11ddb7bf-efe5-4ad1-9781-261c085f1c08">
+          <AttributeID>Phylum</AttributeID>
+          <Name>Phylum</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="d45415b4-7c27-40ab-99eb-4b47771e1563">
+          <AttributeID>Class</AttributeID>
+          <Name>Class</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="4c1576ba-3204-4e1f-a2af-3146b1d731a5">
+          <AttributeID>Order</AttributeID>
+          <Name>Order</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="d44d75a1-70ef-43e4-90db-18ec3e2eb9ca">
+          <AttributeID>Family</AttributeID>
+          <Name>Family</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="ee3954f6-798e-4d03-ad27-00d44e2d92a4">
+          <AttributeID>Genus</AttributeID>
+          <Name>Genus</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="fd6e5eda-3e4e-4190-af13-3a77ef91cafb">
+          <AttributeID>Species</AttributeID>
+          <Name>Species</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="62633fbc-bb67-40ed-9d50-c7d87e075a08">
+          <AttributeID>Scientific Name</AttributeID>
+          <Name>Scientific Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="7fad386d-a20b-4b22-9094-956bbf2bc4f0">
+          <AttributeID>Taxon Rank</AttributeID>
+          <Name>Taxon Rank</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="aa0a47e5-07ed-4f76-96c8-9364546e07a4">
+      <ID>Kingdom</ID>
+      <Name>Kingdom</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="8b8b7e08-25a5-4c4f-80dd-1287f89d703b">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a0b399bf-cfa4-4c2a-95ef-aee8f51e261d">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>kingdom</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="14d26dae-9d44-429f-8ddb-c920abf7402c">
+      <ID>Phylum</ID>
+      <Name>Phylum</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="10201c74-f40b-4cea-8c0c-eedacd447f87">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="5b6e4b1a-505f-4317-8818-aae0809104ed">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>phylum</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="a7810d9b-e487-46f9-ac3d-a73ea285a8c8">
+      <ID>Class</ID>
+      <Name>Class</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="1c76b495-19cd-4254-af26-0e84b8af7b79">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="e170feac-80f5-499c-b7e3-4badf9477f19">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>class</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="b976637e-2d88-49ca-9013-16f6cabb25cc">
+      <ID>Order</ID>
+      <Name>Order</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="49128719-7aa0-46d7-823a-d2493e648a88">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="3484498d-f524-4b60-9c87-5ac307e921cb">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>order</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="0267d575-483c-4729-a789-931b0b03e945">
+      <ID>Family</ID>
+      <Name>Family</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="c4de5760-d0a6-4346-9bc1-cc541ed28e06">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="ff0639e8-397e-4f0d-9a2f-d67640653bdf">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>family</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="eb21106f-8560-43aa-bdbc-f0ca520a433a">
+      <ID>Genus</ID>
+      <Name>Genus</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="f0fb4f1a-27dd-4069-ae6b-f3b71d0e7016">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="e676486b-0c50-4ff8-8506-a6935fbbef6e">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>genus</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="406ec0a7-23e4-4e76-a00c-4813a26a2e4e">
+      <ID>Species</ID>
+      <Name>Species</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="567feece-3be9-4409-82b4-b38d3e1361c1">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="60d4b50d-f3a7-4439-b6f7-99ef9452ef94">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>species</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="5f9c5cb3-b26d-4474-9daa-f9912903d419">
+      <ID>Scientific Name</ID>
+      <Name>Scientific Name</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="14f62030-cd58-4e1c-867f-102e6a9883b5">
+          <DataType>WChar</DataType>
+          <DataSize>256</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="443f3870-5804-4725-b102-7a6d0695e82b">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>scientificName</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="1ef12503-eda6-41ce-ae1a-4ff0077f3eb7">
+      <ID>Taxon Rank</ID>
+      <Name>Taxon Rank</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="69ce2a28-4b56-489e-9820-25a2802829f5">
+          <DataType>WChar</DataType>
+          <DataSize>20</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="8770ae63-07b2-4b59-afd8-8451ef6dfc43">
+            <TableID>dbo_Dim_Taxon</TableID>
+            <ColumnID>taxon_rank</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <Hierarchies>
+    <Hierarchy dwd:design-time-name="ac31382e-46d6-43eb-a3de-0068c58fed1b">
+      <ID>Hierarchy</ID>
+      <Name>Hierarchy</Name>
+      <Levels>
+        <Level dwd:design-time-name="d100ebbb-0f43-4a2a-9ba6-2368932ddd8b">
+          <ID>Kingdom</ID>
+          <Name>Kingdom</Name>
+          <SourceAttributeID>Kingdom</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+    <Hierarchy dwd:design-time-name="fc78f54e-8ce8-4eda-8e7e-ebe413e984b1">
+      <ID>Hierarchy 1</ID>
+      <Name>Hierarchy 1</Name>
+      <Levels>
+        <Level dwd:design-time-name="f550b9b7-718b-447b-8d06-55c178ec9c0b">
+          <ID>Phylum</ID>
+          <Name>Phylum</Name>
+          <SourceAttributeID>Phylum</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+    <Hierarchy dwd:design-time-name="1cdb0dd0-522f-4c5d-859f-bab00bd8c361">
+      <ID>Hierarchy 2</ID>
+      <Name>Hierarchy 2</Name>
+      <Levels>
+        <Level dwd:design-time-name="f2e11282-eb6a-4245-b60b-3c33fe2d7222">
+          <ID>Class</ID>
+          <Name>Class</Name>
+          <SourceAttributeID>Class</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+    <Hierarchy dwd:design-time-name="b3d986ea-a3bd-44cb-8213-1e3f6aa575e2">
+      <ID>Hierarchy 3</ID>
+      <Name>Hierarchy 3</Name>
+      <Levels>
+        <Level dwd:design-time-name="194aea29-fd3d-466b-a320-db442d170db9">
+          <ID>Order</ID>
+          <Name>Order</Name>
+          <SourceAttributeID>Order</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+    <Hierarchy dwd:design-time-name="0b51477a-8bfe-4a78-bf3f-b8c8c7a96b9c">
+      <ID>Hierarchy 4</ID>
+      <Name>Hierarchy 4</Name>
+      <Levels>
+        <Level dwd:design-time-name="e20dbabf-5df2-4dfe-9bdc-bb55aaf0b9e6">
+          <ID>Family</ID>
+          <Name>Family</Name>
+          <SourceAttributeID>Family</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+    <Hierarchy dwd:design-time-name="4f7f1c46-a99a-4845-9347-facedf7f4c5a">
+      <ID>Hierarchy 5</ID>
+      <Name>Hierarchy 5</Name>
+      <Levels>
+        <Level dwd:design-time-name="0e6aab8a-c49a-4f4e-b7c1-fad5212ead26">
+          <ID>Genus</ID>
+          <Name>Genus</Name>
+          <SourceAttributeID>Genus</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+    <Hierarchy dwd:design-time-name="4dcfaef8-82c9-4ba3-964d-35fc684eaaa1">
+      <ID>Hierarchy 6</ID>
+      <Name>Hierarchy 6</Name>
+      <Levels>
+        <Level dwd:design-time-name="2c1c0f61-e8e5-48ff-a31b-833b12563673">
+          <ID>Scientific Name</ID>
+          <Name>Scientific Name</Name>
+          <SourceAttributeID>Scientific Name</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+  </Hierarchies>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>

@@ -1,3 +1,4 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
 -- Q11. Loài mới được ghi nhận và loài tích lũy từ 20 độ Bắc
 -- First means first within the dataset/northern slice, not first arrival.
 -- Count the union of species across years; do not SUM annual richness.
@@ -5,32 +6,35 @@
 -- Year members start at 1980, ordered by numeric key, including years without observations.
 
 WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
 SET [Known Species] AS
-    EXCEPT([Taxon].[Species].[Species].MEMBERS,
-           {[Taxon].[Species].&[__UNKNOWN__]})
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
 
 MEMBER [Measures].[Cumulative Northern Species] AS
     COUNT(NONEMPTY(
         [Known Species],
-        {[Date].[Year].&[1980]:[Date].[Year].CURRENTMEMBER}
+        {[Dim Date].[Year].&[1980]:[Dim Date].[Year].CURRENTMEMBER}
         * {[Measures].[Record Count]})),
     FORMAT_STRING = "#,##0"
 
 MEMBER [Measures].[New Northern Species] AS
     [Measures].[Cumulative Northern Species]
-    - IIF([Date].[Year].CURRENTMEMBER IS [Date].[Year].&[1980],
+    - IIF([Dim Date].[Year].CURRENTMEMBER IS [Dim Date].[Year].&[1980],
           0,
-          ([Measures].[Cumulative Northern Species], [Date].[Year].CURRENTMEMBER.LAG(1))),
+          ([Measures].[Cumulative Northern Species], [Dim Date].[Year].CURRENTMEMBER.LAG(1))),
     FORMAT_STRING = "#,##0"
 
 MEMBER [Measures].[Sampled Sites] AS
-    COUNT(NONEMPTY(EXISTING [Location].[Coordinates].[Coordinates].MEMBERS,
+    COUNT(NONEMPTY(EXISTING [Dim Location].[Coordinates].[Coordinates].MEMBERS,
                    {[Measures].[Record Count]})),
     FORMAT_STRING = "#,##0"
 
 SELECT
     {[Measures].[New Northern Species], [Measures].[Cumulative Northern Species],
      [Measures].[Record Count], [Measures].[Sampled Sites]} ON COLUMNS,
-    [Date].[Year].[Year].MEMBERS ON ROWS
-FROM [Marine Range Shift]
-WHERE ([Location].[Latitude Band].&[20]);
+    [Dim Date].[Year].[Year].MEMBERS ON ROWS
+FROM [MARINE SHIFT RANGE DW]
+WHERE ([Dim Location].[Latitude Band].&[20-23°N]);

@@ -1,11 +1,15 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
 -- Q12. Mười lăm loài có khoảng SST ghi nhận rộng nhất
 -- Native SST measures use Min/Max aggregation, with NullProcessing=Preserve.
 -- This is observed SST span, not physiological tolerance or adaptability.
 
 WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
 SET [Known Species] AS
-    EXCEPT([Taxon].[Species].[Species].MEMBERS,
-           {[Taxon].[Species].&[__UNKNOWN__]})
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
 
 MEMBER [Measures].[SST Span] AS
     IIF(NOT ISEMPTY([Measures].[SST Minimum]) AND
@@ -14,7 +18,7 @@ MEMBER [Measures].[SST Span] AS
     FORMAT_STRING = "0.00"
 
 MEMBER [Measures].[Sampled Sites] AS
-    COUNT(NONEMPTY(EXISTING [Location].[Coordinates].[Coordinates].MEMBERS,
+    COUNT(NONEMPTY(EXISTING [Dim Location].[Coordinates].[Coordinates].MEMBERS,
                    {[Measures].[Record Count]})),
     FORMAT_STRING = "#,##0"
 
@@ -26,4 +30,4 @@ SELECT
                NOT ISEMPTY([Measures].[SST Minimum]) AND
                NOT ISEMPTY([Measures].[SST Maximum])),
         15, [Measures].[SST Span]) ON ROWS
-FROM [Marine Range Shift];
+FROM [MARINE SHIFT RANGE DW];

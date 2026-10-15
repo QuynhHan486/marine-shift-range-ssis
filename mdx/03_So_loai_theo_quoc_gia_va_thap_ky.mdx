@@ -1,0 +1,22 @@
+-- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
+-- Q03. Số loài theo quốc gia và thập kỷ
+-- Missing country is retained with caption Unknown country (blank member key).
+
+WITH
+MEMBER [Measures].[Record Count] AS
+    [Measures].[Occurrence Count], FORMAT_STRING = "#,##0"
+
+SET [Known Species] AS
+    FILTER([Dim Taxon].[Species].[Species].MEMBERS,
+           LEN(TRIM([Dim Taxon].[Species].CURRENTMEMBER.PROPERTIES("KEY0"))) > 0)
+
+MEMBER [Measures].[Recorded Species] AS
+    COUNT(NONEMPTY(EXISTING [Known Species], {[Measures].[Record Count]})),
+    FORMAT_STRING = "#,##0"
+
+SELECT
+    {[Measures].[Recorded Species], [Measures].[Record Count]} ON COLUMNS,
+    NONEMPTY([Dim Location].[Country].[Country].MEMBERS
+             * [Dim Date].[Decade].[Decade].MEMBERS,
+             {[Measures].[Record Count]}) ON ROWS
+FROM [MARINE SHIFT RANGE DW];
