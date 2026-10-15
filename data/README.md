@@ -1,6 +1,6 @@
 # Nguồn dữ liệu
 
-`occurrence_clean.csv` là file người thực hiện đồ án cung cấp, giữ nguyên byte UTF-8 BOM: 108.680 dòng, 24 cột. Dữ liệu đã được lọc và làm sạch từ `Occurrence.csv` theo mục 1.1.3 của báo cáo hiện tại. Kho SSIS bắt đầu từ file sạch này; không thực hiện lại lọc `marine` vì cột đó không còn trong file sạch.
+`occurrence_clean.csv` là file người thực hiện đồ án cung cấp, UTF-8 BOM: 108.680 dòng, 23 cột. Dữ liệu đã được lọc và làm sạch từ `Occurrence.csv` theo mục 1.1.3 của báo cáo hiện tại. Cột flag_marine_unsure (toàn bộ FALSE) đã được loại theo yêu cầu ngày 14/10/2026; các giá trị khác được giữ nguyên. Kho SSIS bắt đầu từ file sạch này; không thực hiện lại lọc `marine` vì cột đó không còn trong file sạch.
 
 Thông tin nguồn trong báo cáo: OBIS Marine Species Occurrence Dataset. Bản giao hiện tại không có DOI hoặc mã download OBIS đủ để tái lập tải dữ liệu. Không suy diễn giấy phép cho dữ liệu hoặc thay đổi nguồn gốc bản ghi. Khi trích dẫn học thuật, bổ sung DOI/download citation và giấy phép từng dataset từ lần tải OBIS gốc.
 

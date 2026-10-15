@@ -24,7 +24,7 @@ CREATE TABLE dbo.Dim_Depth_Band (id int NOT NULL PRIMARY KEY, depth_band nvarcha
 IF OBJECT_ID('dbo.Dim_Quality','U') IS NULL
 CREATE TABLE dbo.Dim_Quality (id int NOT NULL PRIMARY KEY, flag_on_land bit NOT NULL,
  flags nvarchar(512) NOT NULL, occurrence_status nvarchar(16) NULL,
- flag_marine_unsure bit NOT NULL, quality_key binary(32) NOT NULL UNIQUE);
+ quality_key binary(32) NOT NULL UNIQUE);
 IF OBJECT_ID('dbo.Fact_Occurrence','U') IS NULL
 CREATE TABLE dbo.Fact_Occurrence (id nvarchar(64) COLLATE Latin1_General_100_BIN2 NOT NULL PRIMARY KEY,
  date_id int NOT NULL, taxon_id int NOT NULL, location_id int NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE load.Dim_Depth_Band (id int NOT NULL PRIMARY KEY, depth_band nvarch
 IF OBJECT_ID('load.Dim_Quality','U') IS NULL
 CREATE TABLE load.Dim_Quality (id int NOT NULL PRIMARY KEY, flag_on_land bit NOT NULL,
  flags nvarchar(512) NOT NULL, occurrence_status nvarchar(16) NULL,
- flag_marine_unsure bit NOT NULL, quality_key binary(32) NOT NULL UNIQUE);
+ quality_key binary(32) NOT NULL UNIQUE);
 IF OBJECT_ID('load.Fact_Occurrence','U') IS NULL
 CREATE TABLE load.Fact_Occurrence (id nvarchar(64) COLLATE Latin1_General_100_BIN2 NOT NULL PRIMARY KEY,
  date_id int NOT NULL, taxon_id int NOT NULL, location_id int NOT NULL,
@@ -88,7 +88,6 @@ IF OBJECT_ID('etl.Stg_OccurrenceRaw','U') IS NULL CREATE TABLE etl.Stg_Occurrenc
 [sss] nvarchar(512) NULL,
 [flags] nvarchar(512) NULL,
 [flag_on_land] nvarchar(512) NULL,
-[flag_marine_unsure] nvarchar(512) NULL,
 [kingdom] nvarchar(512) NULL,
 [phylum] nvarchar(512) NULL,
 [class] nvarchar(512) NULL,

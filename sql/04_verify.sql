@@ -9,11 +9,11 @@ IF EXISTS(SELECT id COLLATE Latin1_General_100_BIN2 FROM etl.Stg_Occurrence EXCE
  OR EXISTS(SELECT id FROM dbo.Fact_Occurrence EXCEPT SELECT id COLLATE Latin1_General_100_BIN2 FROM etl.Stg_Occurrence) THROW 51103,'Source and fact ID sets differ.',1;
 IF EXISTS (
  SELECT s.id COLLATE Latin1_General_100_BIN2,s.eventDate,s.scientificName COLLATE Latin1_General_100_BIN2,s.decimalLatitude,s.decimalLongitude,s.country,s.shoredistance,s.sst,s.sss,
- s.depth_band_id,s.flag_on_land,s.flags,s.occurrenceStatus,s.flag_marine_unsure,s.depth,s.individualCount
+ s.depth_band_id,s.flag_on_land,s.flags,s.occurrenceStatus,s.depth,s.individualCount
  FROM etl.Stg_Occurrence s
  EXCEPT
  SELECT f.id,d.event_date,t.scientificName,l.decimalLatitude,l.decimalLongitude,l.country,l.shoredistance,l.sst,l.sss,
- f.depth_band_id,q.flag_on_land,q.flags,q.occurrence_status,q.flag_marine_unsure,f.depth,f.individualCount
+ f.depth_band_id,q.flag_on_land,q.flags,q.occurrence_status,f.depth,f.individualCount
  FROM dbo.Fact_Occurrence f JOIN dbo.Dim_Date d ON f.date_id=d.id JOIN dbo.Dim_Taxon t ON f.taxon_id=t.id
  JOIN dbo.Dim_Location l ON f.location_id=l.id JOIN dbo.Dim_Quality q ON f.quality_id=q.id
 ) THROW 51104,'A fact key, attribute, null, or measure differs from the source.',1;

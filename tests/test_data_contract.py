@@ -19,7 +19,7 @@ class DataContract(unittest.TestCase):
 
     def test_source_identity(self):
         self.assertEqual(len(self.rows),108680)
-        self.assertEqual(len(self.columns),24)
+        self.assertEqual(len(self.columns),23)
         self.assertEqual(len({r['id'] for r in self.rows}),len(self.rows))
         self.assertEqual(hashlib.sha256((ROOT/'data/occurrence_clean.csv').read_bytes()).hexdigest(),self.manifest['sha256'])
 
@@ -34,7 +34,7 @@ class DataContract(unittest.TestCase):
         self.assertEqual(len({r['scientificName'] for r in self.rows}),7737)
         loc=['decimalLatitude','decimalLongitude','country','shoredistance','sst','sss']
         self.assertEqual(len({tuple(r[c] for c in loc) for r in self.rows}),3067)
-        q=['flag_on_land','flags','occurrenceStatus','flag_marine_unsure']
+        q=['flag_on_land','flags','occurrenceStatus']
         self.assertEqual(len({tuple(r[c] for c in q) for r in self.rows}),26)
 
     def test_missing_measures_and_flags(self):

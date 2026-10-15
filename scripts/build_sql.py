@@ -2,7 +2,7 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW_COLUMNS = ['id','country','decimalLatitude','decimalLongitude','latitude_band','shoredistance','eventDate','depth','depth_band','sst','sss','flags','flag_on_land','flag_marine_unsure','kingdom','phylum','class','order','family','genus','species','scientificName','occurrenceStatus','individualCount']
+RAW_COLUMNS = ['id','country','decimalLatitude','decimalLongitude','latitude_band','shoredistance','eventDate','depth','depth_band','sst','sss','flags','flag_on_land','kingdom','phylum','class','order','family','genus','species','scientificName','occurrenceStatus','individualCount']
 TABLES = {
  'Dim_Date': '''id int NOT NULL PRIMARY KEY, event_date date NOT NULL UNIQUE,
  [year] int NOT NULL, decade nvarchar(10) NOT NULL, [quarter] nvarchar(2) NOT NULL,
@@ -22,7 +22,7 @@ TABLES = {
  depth_min_m int NULL, depth_max_m int NULL''',
  'Dim_Quality': '''id int NOT NULL PRIMARY KEY, flag_on_land bit NOT NULL,
  flags nvarchar(512) NOT NULL, occurrence_status nvarchar(16) NULL,
- flag_marine_unsure bit NOT NULL, quality_key binary(32) NOT NULL UNIQUE''',
+ quality_key binary(32) NOT NULL UNIQUE''',
  'Fact_Occurrence': '''id nvarchar(64) COLLATE Latin1_General_100_BIN2 NOT NULL PRIMARY KEY,
  date_id int NOT NULL, taxon_id int NOT NULL, location_id int NOT NULL,
  depth_band_id int NOT NULL, quality_id int NOT NULL, depth decimal(20,10) NULL,
@@ -65,7 +65,7 @@ IF NOT EXISTS (SELECT 1 FROM etl.SnapshotState) INSERT etl.SnapshotState VALUES 
         if c in ['latitude_band','depth_band']: continue  # Recompute from numeric values.
         if c in casts: expr=f"TRY_CONVERT({casts[c]},NULLIF(TRIM(r.[{c}]),''))"
         elif c=='eventDate': expr="TRY_CONVERT(date,NULLIF(TRIM(r.eventDate),''),103)"
-        elif c in ['flag_on_land','flag_marine_unsure']: expr=f"CASE LOWER(TRIM(r.[{c}])) WHEN 'true' THEN CONVERT(bit,1) WHEN 'false' THEN CONVERT(bit,0) END"
+        elif c in ['flag_on_land']: expr=f"CASE LOWER(TRIM(r.[{c}])) WHEN 'true' THEN CONVERT(bit,1) WHEN 'false' THEN CONVERT(bit,0) END"
         elif c=='flags': expr="COALESCE(NULLIF(TRIM(r.flags),''),N'[]')"
         elif c=='occurrenceStatus': expr="LOWER(NULLIF(TRIM(r.occurrenceStatus),''))"
         else: expr=f"NULLIF(TRIM(r.[{c}]),'')"
@@ -76,7 +76,7 @@ IF NOT EXISTS (SELECT 1 FROM etl.SnapshotState) INSERT etl.SnapshotState VALUES 
         "CASE WHEN p.eventDate IS NULL OR p.eventDate<'19800101' OR p.eventDate>CONVERT(date,SYSDATETIMEOFFSET() AT TIME ZONE 'SE Asia Standard Time') THEN N'invalid_date;' ELSE N'' END",
         "CASE WHEN p.decimalLatitude IS NULL OR p.decimalLatitude NOT BETWEEN 0 AND 23 OR p.decimalLongitude IS NULL OR p.decimalLongitude NOT BETWEEN 99 AND 121 THEN N'invalid_coordinates;' ELSE N'' END",
         "CASE WHEN p.scientificName IS NULL OR LEN(p.scientificName)>256 THEN N'invalid_scientific_name;' ELSE N'' END",
-        "CASE WHEN p.flag_on_land IS NULL OR p.flag_marine_unsure IS NULL THEN N'invalid_boolean;' ELSE N'' END",
+        "CASE WHEN p.flag_on_land IS NULL THEN N'invalid_boolean;' ELSE N'' END",
         "CASE WHEN p.occurrenceStatus IS NOT NULL AND p.occurrenceStatus NOT IN ('present','absent') THEN N'invalid_status;' ELSE N'' END",
         "CASE WHEN p.depth<0 OR p.individualCount<0 THEN N'negative_measure;' ELSE N'' END",
         "CASE WHEN LEN(p.country)>128 OR LEN(p.flags)>512 THEN N'overlength_text;' ELSE N'' END",
@@ -85,7 +85,7 @@ IF NOT EXISTS (SELECT 1 FROM etl.SnapshotState) INSERT etl.SnapshotState VALUES 
         reasons.append(f"CASE WHEN LEN(p.[{c}])>256 THEN N'overlength_{c};' ELSE N'' END")
     for c in casts:
         reasons.append(f"CASE WHEN NULLIF(TRIM(r.[{c}]),'') IS NOT NULL AND p.[{c}] IS NULL THEN N'invalid_number_{c};' ELSE N'' END")
-    reasons += ["CASE WHEN p.flag_on_land<>CONVERT(bit,CASE WHEN CHARINDEX('ON_LAND',p.flags)>0 THEN 1 ELSE 0 END) OR p.flag_marine_unsure<>CONVERT(bit,CASE WHEN CHARINDEX('MARINE_UNSURE',p.flags)>0 THEN 1 ELSE 0 END) THEN N'flag_mismatch;' ELSE N'' END"]
+    reasons += ["CASE WHEN p.flag_on_land<>CONVERT(bit,CASE WHEN CHARINDEX('ON_LAND',p.flags)>0 THEN 1 ELSE 0 END) THEN N'flag_mismatch;' ELSE N'' END"]
     views = f'''CREATE OR ALTER VIEW etl.v_Parsed AS
 SELECT r.source_row, {', '.join(fields)},
  ROW_NUMBER() OVER(PARTITION BY NULLIF(TRIM(r.id),'') COLLATE Latin1_General_100_BIN2 ORDER BY r.source_row) AS duplicate_sequence
@@ -103,7 +103,7 @@ SELECT p.*,
  CASE WHEN depth IS NULL THEN 0 WHEN depth<50 THEN 1 WHEN depth<200 THEN 2 WHEN depth<1000 THEN 3 ELSE 4 END AS depth_band_id,
  CASE WHEN sst IS NULL THEN NULL WHEN sst<25 THEN N'<25°C' WHEN sst<27 THEN N'25-27°C' WHEN sst<29 THEN N'27-29°C' ELSE N'>=29°C' END AS sst_group,
  CONVERT(binary(32),HASHBYTES('SHA2_256',CONVERT(nvarchar(max),(SELECT p.decimalLatitude AS lat,p.decimalLongitude AS lon,p.country,p.shoredistance,p.sst,p.sss FOR JSON PATH,WITHOUT_ARRAY_WRAPPER,INCLUDE_NULL_VALUES)))) AS location_key,
- CONVERT(binary(32),HASHBYTES('SHA2_256',CONVERT(nvarchar(max),(SELECT p.flag_on_land,p.flags,p.occurrenceStatus,p.flag_marine_unsure FOR JSON PATH,WITHOUT_ARRAY_WRAPPER,INCLUDE_NULL_VALUES)))) AS quality_key
+ CONVERT(binary(32),HASHBYTES('SHA2_256',CONVERT(nvarchar(max),(SELECT p.flag_on_land,p.flags,p.occurrenceStatus FOR JSON PATH,WITHOUT_ARRAY_WRAPPER,INCLUDE_NULL_VALUES)))) AS quality_key
 FROM etl.v_Checked p WHERE p.reject_reason=N'';
 GO
 '''
@@ -154,8 +154,8 @@ GO
 CREATE OR ALTER VIEW etl.v_LoadDim_Quality AS
 SELECT CONVERT(int,ROW_NUMBER() OVER(ORDER BY quality_key)) AS id,flag_on_land,
  CONVERT(nvarchar(512),flags) AS flags,CONVERT(nvarchar(16),occurrenceStatus) AS occurrence_status,
- flag_marine_unsure,quality_key
-FROM etl.Stg_Occurrence GROUP BY quality_key,flag_on_land,flags,occurrenceStatus,flag_marine_unsure;
+ quality_key
+FROM etl.Stg_Occurrence GROUP BY quality_key,flag_on_land,flags,occurrenceStatus;
 GO
 CREATE OR ALTER VIEW etl.v_LoadFact_Occurrence AS
 SELECT CONVERT(nvarchar(64),s.id) AS id,d.id AS date_id,t.id AS taxon_id,l.id AS location_id,
@@ -239,7 +239,7 @@ BEGIN
                  'Dim_Taxon':['id','kingdom','phylum','class','order','family','genus','species','scientificName','taxon_rank'],
                  'Dim_Location':['id','decimalLatitude','decimalLongitude','latitude_band','grid_cell','country','shoredistance','sst','sst_group','sss','location_key'],
                  'Dim_Depth_Band':['id','depth_band','depth_min_m','depth_max_m'],
-                 'Dim_Quality':['id','flag_on_land','flags','occurrence_status','flag_marine_unsure','quality_key'],
+                 'Dim_Quality':['id','flag_on_land','flags','occurrence_status','quality_key'],
                  'Fact_Occurrence':['id','date_id','taxon_id','location_id','depth_band_id','quality_id','depth','individualCount','occurrence_count']}[table]
         column_list=','.join(f'[{c}]' for c in names)
         procedures += f'\n INSERT dbo.{table} ({column_list}) SELECT {column_list} FROM load.{table};'

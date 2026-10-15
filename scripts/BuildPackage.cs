@@ -15,7 +15,7 @@ class BuildPackage {
  static ConnectionManager warehouse, audit;
  static TaskHost previous;
  static Application app;
- static string[] cols = {"id","country","decimalLatitude","decimalLongitude","latitude_band","shoredistance","eventDate","depth","depth_band","sst","sss","flags","flag_on_land","flag_marine_unsure","kingdom","phylum","class","order","family","genus","species","scientificName","occurrenceStatus","individualCount"};
+ static string[] cols = {"id","country","decimalLatitude","decimalLongitude","latitude_band","shoredistance","eventDate","depth","depth_band","sst","sss","flags","flag_on_land","kingdom","phylum","class","order","family","genus","species","scientificName","occurrenceStatus","individualCount"};
  static string Component(string name) {
   foreach(PipelineComponentInfo info in app.PipelineComponentInfos) if(info.Name==name) return info.CreationName;
   throw new Exception("SSIS component missing: "+name);

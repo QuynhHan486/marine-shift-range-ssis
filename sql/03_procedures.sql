@@ -70,7 +70,7 @@ BEGIN
  INSERT dbo.Dim_Taxon ([id],[kingdom],[phylum],[class],[order],[family],[genus],[species],[scientificName],[taxon_rank]) SELECT [id],[kingdom],[phylum],[class],[order],[family],[genus],[species],[scientificName],[taxon_rank] FROM load.Dim_Taxon;
  INSERT dbo.Dim_Location ([id],[decimalLatitude],[decimalLongitude],[latitude_band],[grid_cell],[country],[shoredistance],[sst],[sst_group],[sss],[location_key]) SELECT [id],[decimalLatitude],[decimalLongitude],[latitude_band],[grid_cell],[country],[shoredistance],[sst],[sst_group],[sss],[location_key] FROM load.Dim_Location;
  INSERT dbo.Dim_Depth_Band ([id],[depth_band],[depth_min_m],[depth_max_m]) SELECT [id],[depth_band],[depth_min_m],[depth_max_m] FROM load.Dim_Depth_Band;
- INSERT dbo.Dim_Quality ([id],[flag_on_land],[flags],[occurrence_status],[flag_marine_unsure],[quality_key]) SELECT [id],[flag_on_land],[flags],[occurrence_status],[flag_marine_unsure],[quality_key] FROM load.Dim_Quality;
+ INSERT dbo.Dim_Quality ([id],[flag_on_land],[flags],[occurrence_status],[quality_key]) SELECT [id],[flag_on_land],[flags],[occurrence_status],[quality_key] FROM load.Dim_Quality;
  INSERT dbo.Fact_Occurrence ([id],[date_id],[taxon_id],[location_id],[depth_band_id],[quality_id],[depth],[individualCount],[occurrence_count]) SELECT [id],[date_id],[taxon_id],[location_id],[depth_band_id],[quality_id],[depth],[individualCount],[occurrence_count] FROM load.Fact_Occurrence;
  UPDATE etl.Batch SET status='SUCCEEDED',completed_at=SYSUTCDATETIME(),
  fact_rows=(SELECT COUNT_BIG(*) FROM dbo.Fact_Occurrence) WHERE batch_id=@batch_id;

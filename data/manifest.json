@@ -15,7 +15,6 @@
     "sss",
     "flags",
     "flag_on_land",
-    "flag_marine_unsure",
     "kingdom",
     "phylum",
     "class",
@@ -41,7 +40,6 @@
     "sss": 690,
     "flags": 0,
     "flag_on_land": 0,
-    "flag_marine_unsure": 0,
     "kingdom": 336,
     "phylum": 1105,
     "class": 4996,
@@ -67,7 +65,6 @@
     "sss": 5,
     "flags": 49,
     "flag_on_land": 5,
-    "flag_marine_unsure": 5,
     "kingdom": 20,
     "phylum": 23,
     "class": 29,
@@ -110,17 +107,14 @@
     "flag_on_land": {
       "FALSE": 103590,
       "TRUE": 5090
-    },
-    "flag_marine_unsure": {
-      "FALSE": 108680
     }
   },
   "file": "occurrence_clean.csv",
-  "sha256": "a560e42917659abbbe1be9b5128269aa73510c0f7d84afd40f8667c5be5986a0",
+  "sha256": "d1beb84e8e46a1fad7b4d201ee10a8f3f6a8de5a4013c05f3169f3d75f728655",
   "encoding": "UTF-8 BOM",
   "date_range": [
     "1980-01-01",
     "2026-07-13"
   ],
-  "input_stage": "already cleaned source provided by project author"
+  "input_stage": "Cleaned source supplied by author; redundant flag_marine_unsure removed; synchronized with GitHub e4e526b on 2026-10-15; eventDate leading-zero formatting differs but all parsed dates and other values are unchanged"
 }

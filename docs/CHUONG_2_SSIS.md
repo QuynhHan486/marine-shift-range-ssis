@@ -83,7 +83,7 @@ Raw staging giữ nguyên chuỗi nhận từ nguồn. Views `v_Parsed`, `v_Chec
 | `sst`, `sss` | decimal(8,4); giữ NULL khi thiếu |
 | `shoredistance` | decimal(14,4); giữ giá trị âm vì nguồn đánh dấu điểm trên đất liền |
 | Phân loại | TRIM; chuỗi trống trở thành NULL; scientificName bắt buộc |
-| `flags` và boolean | Giữ flags, chuyển TRUE/FALSE sang bit, kiểm tra khớp cờ ON_LAND/MARINE_UNSURE |
+| `flags` và boolean | Giữ flags, chuyển TRUE/FALSE sang bit, kiểm tra khớp cờ ON_LAND |
 | `occurrenceStatus` | Chỉ nhận present, absent hoặc NULL; không suy diễn trạng thái thiếu |
 | Dải vĩ độ/độ sâu | Tính lại từ giá trị số thay vì tin nhãn nguồn |
 
@@ -121,7 +121,7 @@ grid_cell là ô 1° theo FLOOR tọa độ. Dải vĩ độ chia tại 5°, 10�
 
 ### 2.5.5 Dim_Quality
 
-Natural key gồm flag_on_land, flags, occurrenceStatus và flag_marine_unsure. Có 26 nhóm thực tế, không phải 17. Giữ NULL của trạng thái quan sát để phân biệt thiếu thông tin với vắng mặt. Mọi bản ghi ON_LAND vẫn được nạp có cờ, cho phép người phân tích lọc rõ ràng; không bỏ thêm dữ liệu đã được chương 1 chấp nhận.
+Natural key gồm flag_on_land, flags, occurrenceStatus. Có 26 nhóm thực tế, không phải 17. Giữ NULL của trạng thái quan sát để phân biệt thiếu thông tin với vắng mặt. Mọi bản ghi ON_LAND vẫn được nạp có cờ, cho phép người phân tích lọc rõ ràng; không bỏ thêm dữ liệu đã được chương 1 chấp nhận.
 
 ### 2.5.6 Fact_Occurrence
 
@@ -165,7 +165,7 @@ Bằng chứng nằm tại `evidence/warehouse-validation.json`, `integration-te
 
 ## 2.7 Phạm vi sử dụng kết quả
 
-Kho sẵn sàng làm nguồn cho phần SSAS/OLAP tiếp theo. Cần cập nhật phần mô tả chương 1: Dim_Quality có 26 dòng; Dim_Taxon có species; Dim_Quality có thêm flag_marine_unsure; Dim_Location có thêm khóa kỹ thuật location_key; các measure dùng decimal để giữ đúng nguồn thay vì mô tả individualCount là số nguyên.
+Kho sẵn sàng làm nguồn cho phần SSAS/OLAP tiếp theo. Cần cập nhật phần mô tả chương 1: Dim_Quality có 26 dòng; Dim_Taxon có species; Dim_Location có thêm khóa kỹ thuật location_key; các measure dùng decimal để giữ đúng nguồn thay vì mô tả individualCount là số nguyên.
 
 Dữ liệu thể hiện quan sát và mức độ lấy mẫu không đồng đều. Chưa thể quy SST của nguồn là chuỗi nhiệt độ theo thời gian hoặc kết luận biến đổi khí hậu gây dịch chuyển chỉ từ kho này. Phân tích cần kiểm soát flags, trạng thái quan sát, bậc định danh và mức độ lấy mẫu; nếu cần quan hệ nhiệt độ theo năm, bổ sung dữ liệu môi trường có thời điểm rõ ràng.
 
