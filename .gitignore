@@ -21,3 +21,6 @@ docs/render/
 
 # Local recovery snapshots
 .backups/
+
+/tmp/
+**/UpgradeLog*.htm

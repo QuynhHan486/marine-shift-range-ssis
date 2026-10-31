@@ -1,3 +1,95 @@
+DATE Convert Date
+
+event_date
+(DT_DBDATE)(TOKEN(eventDate,"/",3)+"-"+RIGHT("0"+TOKEN(eventDate,"/",2),2)+"-"+RIGHT("0"+TOKEN(eventDate,"/",1),2))
+
+DATE Date Attributes
+
+id
+YEAR(event_date)*10000+MONTH(event_date)*100+DAY(event_date)
+
+year
+YEAR(event_date)
+
+month
+MONTH(event_date)
+
+decade
+(DT_WSTR,4)(YEAR(event_date)-YEAR(event_date)%10)+"s"
+
+quarter
+"Q"+(DT_WSTR,1)DATEPART("quarter",event_date)
+
+season
+MONTH(event_date)==12 || MONTH(event_date)<=2 ? "Winter" : (MONTH(event_date)<=5 ? "Spring" : (MONTH(event_date)<=8 ? "Summer" : "Autumn"))
+
+TAXON Normalize Taxon
+
+t_kingdom
+(DT_WSTR,256)(ISNULL(kingdom) ? "" : TRIM(kingdom))
+
+t_phylum
+(DT_WSTR,256)(ISNULL(phylum) ? "" : TRIM(phylum))
+
+t_class
+(DT_WSTR,256)(ISNULL([class]) ? "" : TRIM([class]))
+
+t_order
+(DT_WSTR,256)(ISNULL([order]) ? "" : TRIM([order]))
+
+t_family
+(DT_WSTR,256)(ISNULL(family) ? "" : TRIM(family))
+
+t_genus
+(DT_WSTR,256)(ISNULL(genus) ? "" : TRIM(genus))
+
+t_species
+(DT_WSTR,256)(ISNULL(species) ? "" : TRIM(species))
+
+t_scientificName
+(DT_WSTR,256)(ISNULL(scientificName) ? "" : TRIM(scientificName))
+
+TAXON Rank Completeness
+
+filled_ranks
+(t_kingdom=="" ? 0 : 1)+(t_phylum=="" ? 0 : 1)+(t_class=="" ? 0 : 1)+(t_order=="" ? 0 : 1)+(t_family=="" ? 0 : 1)+(t_genus=="" ? 0 : 1)+(t_species=="" ? 0 : 1)
+
+TAXON Score Variants
+
+selection_score
+(DT_I4)(filled_ranks*1000000+(DT_I4)variant_records)
+
+TAXON Prepare Taxon Output
+
+kingdom
+t_kingdom=="" ? NULL(DT_WSTR,256) : t_kingdom
+
+phylum
+t_phylum=="" ? NULL(DT_WSTR,256) : t_phylum
+
+class
+t_class=="" ? NULL(DT_WSTR,256) : t_class
+
+order
+t_order=="" ? NULL(DT_WSTR,256) : t_order
+
+family
+t_family=="" ? NULL(DT_WSTR,256) : t_family
+
+genus
+t_genus=="" ? NULL(DT_WSTR,256) : t_genus
+
+species
+t_species=="" ? NULL(DT_WSTR,256) : t_species
+
+scientificName
+(DT_WSTR,256)t_scientificName
+
+taxon_rank
+(DT_WSTR,20)(t_scientificName==t_species ? "species" : (t_scientificName==t_genus ? "genus" : (t_scientificName==t_family ? "family" : (t_scientificName==t_order ? "order" : (t_scientificName==t_class ? "class" : (t_scientificName==t_phylum ? "phylum" : (t_scientificName==t_kingdom ? "kingdom" : "unknown")))))))
+
+LOCATION QUALITY FACT Normalize Text
+
 country_text
 (DT_WSTR,128)(ISNULL(country) ? "" : TRIM(country))
 
@@ -24,6 +116,8 @@ flags_text
 
 date_text
 (DT_WSTR,10)TRIM(eventDate)
+
+LOCATION QUALITY FACT Parse Values
 
 occurrence_id
 (DT_WSTR,64)TRIM(id)
@@ -64,11 +158,13 @@ UPPER(TRIM(flag_on_land))=="TRUE"
 date_iso
 TOKEN(date_text,"/",3)+"-"+RIGHT("0"+TOKEN(date_text,"/",2),2)+"-"+RIGHT("0"+TOKEN(date_text,"/",1),2)
 
+LOCATION QUALITY FACT Build Keys
+
 date_id
 (DT_I4)REPLACE(date_iso,"-","")
 
 latitude_band_calc
-(DT_WSTR,16)(v_lat<5 ? "0-5°N" : (v_lat<10 ? "5-10°N" : (v_lat<15 ? "10-15°N" : (v_lat<20 ? "15-20°N" : "20-23°N"))))
+(DT_WSTR,16)latitude_band
 
 grid_cell_calc
 (DT_WSTR,32)((DT_WSTR,4)(DT_I4)FLOOR(v_lat)+"N_"+(DT_WSTR,4)(DT_I4)FLOOR(v_lon)+"E")
