@@ -10,9 +10,14 @@ __pycache__/
 *.pyc
 .venv/
 evidence/runs/
+evidence/invalid-fixture.csv
 docs/render/
 *.bak
 *.log
+!evidence/final-run.log
+!evidence/reject-test.log
+!evidence/rerun-test.log
+!evidence/visual-studio-build.log
 
 # Local recovery snapshots
 .backups/

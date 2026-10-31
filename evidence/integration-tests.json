@@ -1,0 +1,6 @@
+{
+  "rerun_identical": true,
+  "rejected_run_preserves_warehouse": true,
+  "reject_rows": 3,
+  "final_verification": "PASS"
+}

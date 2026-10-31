@@ -1,0 +1,452 @@
+{
+  "captured_at_utc": "2026-10-08T04:35:36.3320000Z",
+  "database": "MARINE_SHIFT_RANGE_DW",
+  "counts": {
+    "Dim_Location": 3067,
+    "Dim_Depth_Band": 5,
+    "Dim_Taxon": 7737,
+    "Fact_Occurrence": 108680,
+    "Dim_Quality": 26,
+    "Dim_Date": 2314
+  },
+  "digests": {
+    "Dim_Location": "B68748C615022952DEDE356D16218C7FCCB509D43FDE18F2F2FA174E2B9F14B8",
+    "Dim_Depth_Band": "A98F53B6E135240449710506726D6F12501ADB8D5301C2442DB4ED07BDE8993E",
+    "Dim_Taxon": "7555B12CA6E375B43B63DBBFC7026C85CD739A61533590AC8E9B60DD98DB816A",
+    "Fact_Occurrence": "7DAE0CE959EA108D8F0BA73FBFBA86E250BCFC3E70CAD17CA0BC3FE82DD27CDB",
+    "Dim_Quality": "F22FC1FA9679A3F41579729AE4CAC7E428986D6BF318A3BCBC6F69742DA8697C",
+    "Dim_Date": "3B02E2337FDDD2456B9F81545B42962B147B1F2D8E70292408309ABD90E97020"
+  },
+  "samples": {
+    "Dim_Location": [
+      {
+        "id": 1,
+        "decimalLatitude": 22.1521160400,
+        "decimalLongitude": 113.5606524000,
+        "latitude_band": "20-23°N",
+        "grid_cell": "22N_113E",
+        "country": null,
+        "shoredistance": -1097.0000,
+        "sst": 24.6100,
+        "sst_group": "<25°C",
+        "sss": 26.7700,
+        "location_key": "0009697C4CAE7CF832D61DBD66A71563C36F28105CF43F4B3183B576B65B5AE4"
+      },
+      {
+        "id": 2,
+        "decimalLatitude": 20.9735970000,
+        "decimalLongitude": 107.2210190000,
+        "latitude_band": "20-23°N",
+        "grid_cell": "20N_107E",
+        "country": null,
+        "shoredistance": 70.0000,
+        "sst": 25.2700,
+        "sst_group": "25-27°C",
+        "sss": 33.2400,
+        "location_key": "000F75B0AC83C0EC06408C9697023B09F259DE364FDFB535513FD3C09DC6FA8D"
+      },
+      {
+        "id": 3,
+        "decimalLatitude": 13.8856667000,
+        "decimalLongitude": 120.1298330000,
+        "latitude_band": "10-15°N",
+        "grid_cell": "13N_120E",
+        "country": "Philippines",
+        "shoredistance": 2897.0000,
+        "sst": 28.6100,
+        "sst_group": "27-29°C",
+        "sss": 32.3300,
+        "location_key": "00215E64F1A51A1E43383FA3C9F5A9BCDDBDE650D5DD1AC77B6ACF0D5136819C"
+      },
+      {
+        "id": 4,
+        "decimalLatitude": 22.2390202500,
+        "decimalLongitude": 114.1493208000,
+        "latitude_band": "20-23°N",
+        "grid_cell": "22N_114E",
+        "country": null,
+        "shoredistance": 29.0000,
+        "sst": 24.5800,
+        "sst_group": "<25°C",
+        "sss": 27.6000,
+        "location_key": "0027DE9EAE358442C2AFCF8EA6251EE7856FE07AC8F36B7F073B6767E307F33D"
+      },
+      {
+        "id": 5,
+        "decimalLatitude": 22.4642550200,
+        "decimalLongitude": 114.2090714000,
+        "latitude_band": "20-23°N",
+        "grid_cell": "22N_114E",
+        "country": null,
+        "shoredistance": -51.0000,
+        "sst": 24.4900,
+        "sst_group": "<25°C",
+        "sss": 27.1900,
+        "location_key": "0027DF9E728932B9B62F54DFA29A9E5AB1BCAAA12232311AE9DAB65A9BD5E1AA"
+      }
+    ],
+    "Dim_Depth_Band": [
+      {
+        "id": 0,
+        "depth_band": "Unknown",
+        "depth_min_m": null,
+        "depth_max_m": null
+      },
+      {
+        "id": 1,
+        "depth_band": "Coastal/surface (<50 m)",
+        "depth_min_m": 0,
+        "depth_max_m": 50
+      },
+      {
+        "id": 2,
+        "depth_band": "Continental shelf (50-200 m)",
+        "depth_min_m": 50,
+        "depth_max_m": 200
+      },
+      {
+        "id": 3,
+        "depth_band": "Continental slope (200-1000 m)",
+        "depth_min_m": 200,
+        "depth_max_m": 1000
+      },
+      {
+        "id": 4,
+        "depth_band": "Deep sea (>=1000 m)",
+        "depth_min_m": 1000,
+        "depth_max_m": null
+      }
+    ],
+    "Dim_Taxon": [
+      {
+        "id": 1,
+        "kingdom": "Animalia",
+        "phylum": "Porifera",
+        "class": "Demospongiae",
+        "order": "Suberitida",
+        "family": "Suberitidae",
+        "genus": "Aaptos",
+        "species": null,
+        "scientificName": "Aaptos",
+        "taxon_rank": "genus"
+      },
+      {
+        "id": 2,
+        "kingdom": "Animalia",
+        "phylum": "Porifera",
+        "class": "Demospongiae",
+        "order": "Suberitida",
+        "family": "Suberitidae",
+        "genus": "Aaptos",
+        "species": "Aaptos aaptos",
+        "scientificName": "Aaptos aaptos",
+        "taxon_rank": "species"
+      },
+      {
+        "id": 3,
+        "kingdom": "Animalia",
+        "phylum": "Chordata",
+        "class": "Teleostei",
+        "order": "Tetraodontiformes",
+        "family": "Balistidae",
+        "genus": "Abalistes",
+        "species": "Abalistes stellatus",
+        "scientificName": "Abalistes stellatus",
+        "taxon_rank": "species"
+      },
+      {
+        "id": 4,
+        "kingdom": "Animalia",
+        "phylum": "Chordata",
+        "class": "Teleostei",
+        "order": "Lophiiformes",
+        "family": "Antennariidae",
+        "genus": "Abantennarius",
+        "species": "Abantennarius dorehensis",
+        "scientificName": "Abantennarius dorehensis",
+        "taxon_rank": "species"
+      },
+      {
+        "id": 5,
+        "kingdom": "Animalia",
+        "phylum": "Chordata",
+        "class": "Teleostei",
+        "order": "Lophiiformes",
+        "family": "Antennariidae",
+        "genus": "Abantennarius",
+        "species": "Abantennarius nummifer",
+        "scientificName": "Abantennarius nummifer",
+        "taxon_rank": "species"
+      }
+    ],
+    "Fact_Occurrence": [
+      {
+        "id": "00009965-e225-46d8-b4c4-db7dbe6b2589",
+        "date_id": 20170611,
+        "taxon_id": 1647,
+        "location_id": 371,
+        "depth_band_id": 0,
+        "quality_id": 12,
+        "depth": null,
+        "individualCount": null,
+        "occurrence_count": 1
+      },
+      {
+        "id": "0000f8fe-d9d5-4f13-a461-a90856ca0fc6",
+        "date_id": 19840101,
+        "taxon_id": 1685,
+        "location_id": 2055,
+        "depth_band_id": 0,
+        "quality_id": 1,
+        "depth": null,
+        "individualCount": null,
+        "occurrence_count": 1
+      },
+      {
+        "id": "00012464-e4ec-4d16-85ee-a85d88f848ec",
+        "date_id": 19940529,
+        "taxon_id": 7381,
+        "location_id": 2777,
+        "depth_band_id": 1,
+        "quality_id": 8,
+        "depth": 12.0000000000,
+        "individualCount": 14.5800,
+        "occurrence_count": 1
+      },
+      {
+        "id": "0001bad7-6ea8-4cdf-aec8-ad6db4b1a651",
+        "date_id": 20170728,
+        "taxon_id": 6259,
+        "location_id": 2882,
+        "depth_band_id": 0,
+        "quality_id": 12,
+        "depth": null,
+        "individualCount": null,
+        "occurrence_count": 1
+      },
+      {
+        "id": "0002784d-44be-4fcc-a54d-b840ea01014b",
+        "date_id": 19940529,
+        "taxon_id": 953,
+        "location_id": 2777,
+        "depth_band_id": 1,
+        "quality_id": 10,
+        "depth": 5.0000000000,
+        "individualCount": 0.7300,
+        "occurrence_count": 1
+      }
+    ],
+    "Dim_Quality": [
+      {
+        "id": 1,
+        "flag_on_land": false,
+        "flags": "[NO_DEPTH]",
+        "occurrence_status": "present",
+        "flag_marine_unsure": false,
+        "quality_key": "06020FBBFCC595C2BA77A709CE44A6C945B086BC00828471BEC99E92E0913AEE"
+      },
+      {
+        "id": 2,
+        "flag_on_land": true,
+        "flags": "[NO_ACCEPTED_NAME, NO_DEPTH, ON_LAND]",
+        "occurrence_status": "present",
+        "flag_marine_unsure": false,
+        "quality_key": "1580017FBE6720477D293F502A0DA962E7750F35C9B53A37D57B0A7481738642"
+      },
+      {
+        "id": 3,
+        "flag_on_land": true,
+        "flags": "[ON_LAND]",
+        "occurrence_status": null,
+        "flag_marine_unsure": false,
+        "quality_key": "17B31028D6CD0575667594D31DFA8B98317CF2F89B02BF9A5EBDAF039CB997C7"
+      },
+      {
+        "id": 4,
+        "flag_on_land": false,
+        "flags": "[NO_ACCEPTED_NAME]",
+        "occurrence_status": "present",
+        "flag_marine_unsure": false,
+        "quality_key": "2613B9B95E1F39D4554379077A924370122EBFCD52F93AF2713FBA621BB3817C"
+      },
+      {
+        "id": 5,
+        "flag_on_land": false,
+        "flags": "[DEPTH_EXCEEDS_BATH]",
+        "occurrence_status": null,
+        "flag_marine_unsure": false,
+        "quality_key": "32549E94AFE1A14BC5A32D2CB534683FFF42ADB34873D6B52B6061D69013AEAF"
+      }
+    ],
+    "Dim_Date": [
+      {
+        "id": 19800101,
+        "event_date": "1980-01-01T00:00:00.0000000",
+        "year": 1980,
+        "decade": "1980s",
+        "quarter": "Q1",
+        "month": 1,
+        "season": "Winter"
+      },
+      {
+        "id": 19800120,
+        "event_date": "1980-01-20T00:00:00.0000000",
+        "year": 1980,
+        "decade": "1980s",
+        "quarter": "Q1",
+        "month": 1,
+        "season": "Winter"
+      },
+      {
+        "id": 19800125,
+        "event_date": "1980-01-25T00:00:00.0000000",
+        "year": 1980,
+        "decade": "1980s",
+        "quarter": "Q1",
+        "month": 1,
+        "season": "Winter"
+      },
+      {
+        "id": 19800213,
+        "event_date": "1980-02-13T00:00:00.0000000",
+        "year": 1980,
+        "decade": "1980s",
+        "quarter": "Q1",
+        "month": 2,
+        "season": "Winter"
+      },
+      {
+        "id": 19800214,
+        "event_date": "1980-02-14T00:00:00.0000000",
+        "year": 1980,
+        "decade": "1980s",
+        "quarter": "Q1",
+        "month": 2,
+        "season": "Winter"
+      }
+    ]
+  },
+  "batches": [
+    {
+      "batch_id": 1,
+      "started_at": "2026-10-08T04:30:12.3448572",
+      "completed_at": "2026-10-08T04:30:38.8654236",
+      "status": "SUCCEEDED",
+      "source_rows": 108680,
+      "accepted_rows": 108680,
+      "rejected_rows": 0,
+      "fact_rows": 108680,
+      "error_message": null
+    },
+    {
+      "batch_id": 2,
+      "started_at": "2026-10-08T04:31:56.2301418",
+      "completed_at": "2026-10-08T04:32:26.7892809",
+      "status": "SUCCEEDED",
+      "source_rows": 108680,
+      "accepted_rows": 108680,
+      "rejected_rows": 0,
+      "fact_rows": 108680,
+      "error_message": null
+    },
+    {
+      "batch_id": 3,
+      "started_at": "2026-10-08T04:34:34.1909713",
+      "completed_at": "2026-10-08T04:35:00.5354883",
+      "status": "SUCCEEDED",
+      "source_rows": 108680,
+      "accepted_rows": 108680,
+      "rejected_rows": 0,
+      "fact_rows": 108680,
+      "error_message": null
+    },
+    {
+      "batch_id": 4,
+      "started_at": "2026-10-08T04:35:01.9601488",
+      "completed_at": "2026-10-08T04:35:02.2097013",
+      "status": "FAILED",
+      "source_rows": 4,
+      "accepted_rows": 1,
+      "rejected_rows": 3,
+      "fact_rows": null,
+      "error_message": "Executing the query \"EXEC etl.usp_ValidateStage ?,?;\" failed with the following error: \"Reject threshold exceeded; the published warehouse is unchanged. Inspect etl.Reject.\". Possible failure reasons: Problems with the query, \"ResultSet\" property not set correctly, parameters not set correctly, or connection not established correctly.\r\n"
+    },
+    {
+      "batch_id": 5,
+      "started_at": "2026-10-08T04:35:03.6903333",
+      "completed_at": "2026-10-08T04:35:29.8590784",
+      "status": "SUCCEEDED",
+      "source_rows": 108680,
+      "accepted_rows": 108680,
+      "rejected_rows": 0,
+      "fact_rows": 108680,
+      "error_message": null
+    }
+  ],
+  "taxonomy_conflicts": [
+    {
+      "scientificName": "Amastigomonas",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Amastigomonas\",\"kingdom\":null,\"phylum\":null,\"class\":null,\"order\":\"Apusomonadida\",\"family\":\"Apusomonadidae\",\"genus\":\"Amastigomonas\",\"species\":null,\"source_records\":7},{\"scientificName\":\"Amastigomonas\",\"kingdom\":\"Protozoa\",\"phylum\":\"Sulcozoa\",\"class\":\"Apusomonadea\",\"order\":\"Apusomonadida\",\"family\":\"Apusomonadidae\",\"genus\":\"Amastigomonas\",\"species\":null,\"source_records\":12}]"
+    },
+    {
+      "scientificName": "Apusomonadidae",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Apusomonadidae\",\"kingdom\":null,\"phylum\":null,\"class\":null,\"order\":\"Apusomonadida\",\"family\":\"Apusomonadidae\",\"genus\":null,\"species\":null,\"source_records\":7},{\"scientificName\":\"Apusomonadidae\",\"kingdom\":\"Protozoa\",\"phylum\":\"Sulcozoa\",\"class\":\"Apusomonadea\",\"order\":\"Apusomonadida\",\"family\":\"Apusomonadidae\",\"genus\":null,\"species\":null,\"source_records\":7}]"
+    },
+    {
+      "scientificName": "Azadinium",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Azadinium\",\"kingdom\":\"Chromista\",\"phylum\":\"Myzozoa\",\"class\":\"Dinophyceae\",\"order\":\"Dinophyceae incertae sedis\",\"family\":\"Amphidomataceae\",\"genus\":\"Azadinium\",\"species\":null,\"source_records\":24},{\"scientificName\":\"Azadinium\",\"kingdom\":\"Chromista\",\"phylum\":\"Myzozoa\",\"class\":\"Dinophyceae\",\"order\":\"Gonyaulacales\",\"family\":\"Amphidomataceae\",\"genus\":\"Azadinium\",\"species\":null,\"source_records\":8}]"
+    },
+    {
+      "scientificName": "Beggiatoa",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Beggiatoa\",\"kingdom\":\"Bacteria\",\"phylum\":\"Proteobacteria\",\"class\":\"Gammaproteobacteria\",\"order\":null,\"family\":null,\"genus\":\"Beggiatoa\",\"species\":null,\"source_records\":2},{\"scientificName\":\"Beggiatoa\",\"kingdom\":\"Biota incertae sedis\",\"phylum\":null,\"class\":null,\"order\":null,\"family\":null,\"genus\":\"Beggiatoa\",\"species\":null,\"source_records\":1}]"
+    },
+    {
+      "scientificName": "Halimeda discoidea",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Halimeda discoidea\",\"kingdom\":null,\"phylum\":null,\"class\":null,\"order\":null,\"family\":null,\"genus\":\"Halimeda\",\"species\":\"Halimeda discoidea\",\"source_records\":2},{\"scientificName\":\"Halimeda discoidea\",\"kingdom\":\"Plantae\",\"phylum\":\"Chlorophyta\",\"class\":\"Ulvophyceae\",\"order\":\"Bryopsidales\",\"family\":\"Halimedaceae\",\"genus\":\"Halimeda\",\"species\":\"Halimeda discoidea\",\"source_records\":3}]"
+    },
+    {
+      "scientificName": "Halimeda macroloba",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Halimeda macroloba\",\"kingdom\":null,\"phylum\":null,\"class\":null,\"order\":null,\"family\":null,\"genus\":\"Halimeda\",\"species\":\"Halimeda macroloba\",\"source_records\":2},{\"scientificName\":\"Halimeda macroloba\",\"kingdom\":\"Plantae\",\"phylum\":\"Chlorophyta\",\"class\":\"Ulvophyceae\",\"order\":\"Bryopsidales\",\"family\":\"Halimedaceae\",\"genus\":\"Halimeda\",\"species\":\"Halimeda macroloba\",\"source_records\":3}]"
+    },
+    {
+      "scientificName": "Halimeda opuntia",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Halimeda opuntia\",\"kingdom\":null,\"phylum\":null,\"class\":null,\"order\":null,\"family\":null,\"genus\":\"Halimeda\",\"species\":\"Halimeda opuntia\",\"source_records\":2},{\"scientificName\":\"Halimeda opuntia\",\"kingdom\":\"Plantae\",\"phylum\":\"Chlorophyta\",\"class\":\"Ulvophyceae\",\"order\":\"Bryopsidales\",\"family\":\"Halimedaceae\",\"genus\":\"Halimeda\",\"species\":\"Halimeda opuntia\",\"source_records\":5}]"
+    },
+    {
+      "scientificName": "Halimeda tuna",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Halimeda tuna\",\"kingdom\":null,\"phylum\":null,\"class\":null,\"order\":null,\"family\":null,\"genus\":\"Halimeda\",\"species\":\"Halimeda tuna\",\"source_records\":2},{\"scientificName\":\"Halimeda tuna\",\"kingdom\":\"Plantae\",\"phylum\":\"Chlorophyta\",\"class\":\"Ulvophyceae\",\"order\":\"Bryopsidales\",\"family\":\"Halimedaceae\",\"genus\":\"Halimeda\",\"species\":\"Halimeda tuna\",\"source_records\":8}]"
+    },
+    {
+      "scientificName": "Rigifilida",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Rigifilida\",\"kingdom\":null,\"phylum\":null,\"class\":null,\"order\":\"Rigifilida\",\"family\":null,\"genus\":null,\"species\":null,\"source_records\":2},{\"scientificName\":\"Rigifilida\",\"kingdom\":\"Protozoa\",\"phylum\":\"Apusozoa\",\"class\":\"Hilomonadea\",\"order\":\"Rigifilida\",\"family\":null,\"genus\":null,\"species\":null,\"source_records\":2}]"
+    },
+    {
+      "scientificName": "Vampyrellidae",
+      "variant_count": 2,
+      "variants_json": "[{\"scientificName\":\"Vampyrellidae\",\"kingdom\":null,\"phylum\":null,\"class\":null,\"order\":null,\"family\":\"Vampyrellidae\",\"genus\":null,\"species\":null,\"source_records\":6},{\"scientificName\":\"Vampyrellidae\",\"kingdom\":\"Chromista\",\"phylum\":\"Cercozoa\",\"class\":\"Vampyrellidea\",\"order\":\"Vampyrellida\",\"family\":\"Vampyrellidae\",\"genus\":null,\"species\":null,\"source_records\":2}]"
+    }
+  ],
+  "metrics": [
+    {
+      "occurrence_sum": 108680,
+      "individual_sum": 341369.7460,
+      "missing_depth": 46440,
+      "missing_individual_count": 67044
+    }
+  ],
+  "dates": [
+    {
+      "first_date": "1980-01-01T00:00:00.0000000",
+      "last_date": "2026-07-13T00:00:00.0000000"
+    }
+  ]
+}

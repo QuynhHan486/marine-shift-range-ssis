@@ -1,7 +1,5 @@
 # Phạm vi kiểm chứng bộ MDX
 
-**Dùng kho từ SSIS mới:** triển khai SSIS cũ cùng staging/build scripts và log của nó đã được gỡ khỏi repository. Kết nối cube đến cơ sở dữ liệu do SSIS mới nạp, kiểm tra các khóa/thuộc tính, Process rồi chạy và đối chiếu lại **cả 15 câu**. Bằng chứng lịch sử bên dưới được giữ cho MDX; không phải xác nhận kết quả trên kho mới. Baseline warehouse (gồm baseline Q1) cần được cập nhật từ kho mới.
-
 **Lần chạy lịch sử trước khi sửa Q4/Q6:** 15/15 câu thành công, đối chiếu 36.864 ô với snapshot đọc từ 6 bảng dbo.
 
 **Trạng thái hiện tại:** Q4 bỏ bộ lọc vĩ độ và trả ba lớp theo tổng gộp hai thập kỷ; Q6 giữ toàn bộ nhóm khoảng cách. Hai câu này cần được chạy và đối chiếu lại. Máy chỉnh sửa hiện tại có 0 catalog SSAS nên chỉ kiểm tra mã, các phép đối chiếu độc lập và dữ liệu nguồn. Trạng thái tổng của evidence/mdx-suite-validation.json là REVALIDATION_REQUIRED; các kết quả PASS bên trong mô tả bộ cũ; trường current_source_review ghi nhận thay đổi này.
