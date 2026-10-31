@@ -49,6 +49,17 @@ def shore_group(r):
     value = r['shoredistance']
     return '-1' if value is None else '-2' if value < 0 else '0' if value < 10000 else '1' if value < 50000 else '2'
 
+def animalia_class_pools(rows):
+    return group([r for r in rows
+                  if r['kingdom'] == 'Animalia' and r['class']
+                  and r['decade'] in ('2000s', '2010s')
+                  and r['depth_band'] in (1, 2)], lambda r: r['class'])
+
+
+def environment_pools(rows):
+    return group(rows, lambda r: (r['decade'], sst_group(r), sss_group(r), shore_group(r)))
+
+
 def reconcile(snapshot, result_dir, output):
     rows = json.loads(snapshot.read_text(encoding='utf-8-sig'))
     assert len(rows) == 108680
@@ -92,22 +103,20 @@ def reconcile(snapshot, result_dir, output):
         elif number == 3:
             expected = {key:basic(rs) for key,rs in group(rows,lambda r:(r['country'] or '',r['decade'])).items()}
         elif number == 4:
-            subset = [r for r in rows if r['kingdom']=='Animalia' and r['class'] and r['decade'] in ('2000s','2010s') and (10<=r['lat']<15 or 20<=r['lat']<=23) and r['depth_band'] in (1,2)]
-            classes = group(subset,lambda r:r['class'])
+            classes = animalia_class_pools(rows)
             scores = {c:len(species(rs)) for c,rs in classes.items()}
             chosen = {key[0] for key in actual_rows}
             if len(chosen) != min(3,len(classes)):
                 errors.append('Expected exactly three pooled classes')
             if chosen and any(score>min(scores.get(c,-1) for c in chosen) for c,score in scores.items() if c not in chosen):
                 errors.append('A higher-richness pooled class was omitted')
-            expected = {key:basic(rs) for key,rs in group([r for r in subset if r['class'] in chosen],lambda r:(r['class'],r['decade'],r['latitude_band'])).items()}
+            expected = {(name,): basic(rs) for name,rs in classes.items() if name in chosen}
             rank_checks.append({'pooled_top_classes':{c:scores.get(c) for c in sorted(chosen)}})
         elif number == 5:
             labels={0:'Unknown',1:'Coastal/surface (<50 m)',2:'Continental shelf (50-200 m)',3:'Continental slope (200-1000 m)',4:'Deep sea (>=1000 m)'}
             expected={key:basic(rs) for key,rs in group(rows,lambda r:(labels[r['depth_band']],r['latitude_band'])).items()}
         elif number == 6:
-            subset=[r for r in rows if r['shoredistance'] is not None and r['shoredistance']>=0]
-            expected={key:basic(rs) for key,rs in group(subset,lambda r:(r['decade'],sst_group(r),sss_group(r),shore_group(r))).items()}
+            expected={key:basic(rs) for key,rs in environment_pools(rows).items()}
         elif number == 7:
             pools=group(rows,lambda r:(r['decade'],r['grid_cell']))
             scores={key:len(species(rs)) for key,rs in pools.items() if species(rs)}

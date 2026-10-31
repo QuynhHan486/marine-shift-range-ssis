@@ -2,7 +2,7 @@
 -- Q06. So sánh nhóm SST, SSS, khoảng cách đến bờ và thập kỷ
 -- Group thresholds are project conventions documented in MDX_GUIDE.md.
 -- SST/SSS are location context. Unknown environmental groups remain visible.
--- Distance groups here exclude negative/inland and missing distances.
+-- Retain every shore-distance group, including Inland and Unknown; no extra quality filter.
 
 WITH
 MEMBER [Measures].[Record Count] AS
@@ -27,8 +27,6 @@ SELECT
     NONEMPTY([Dim Date].[Decade].[Decade].MEMBERS
              * [Dim Location].[Sst Group].[Sst Group].MEMBERS
              * [Dim Location].[SSS Group].[SSS Group].MEMBERS
-             * {[Dim Location].[Shore Distance Group].&[0],
-                [Dim Location].[Shore Distance Group].&[1],
-                [Dim Location].[Shore Distance Group].&[2]},
+             * [Dim Location].[Shore Distance Group].[Shore Distance Group].MEMBERS,
              {[Measures].[Record Count]}) ON ROWS
 FROM [MARINE SHIFT RANGE DW];

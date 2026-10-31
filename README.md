@@ -68,7 +68,7 @@ SELECT {[Measures].[Occurrence Count]} ON COLUMNS
 FROM [MARINE SHIFT RANGE DW];
 ```
 
-Với snapshot đã cung cấp, tổng bản ghi là **108.680**. Bộ 15 câu MDX đã được kiểm chứng trên môi trường trước đó, đối chiếu 36.864 ô kết quả. Việc SELECT không yêu cầu chạy lại ETL hay Process.
+Với snapshot đã cung cấp, tổng bản ghi là **108.680**. Bộ trước khi cập nhật đã được kiểm chứng trên môi trường trước đó, đối chiếu 36.864 ô kết quả. Q4 và Q6 đã đổi phạm vi theo câu hỏi mới và cần được chạy/đối chiếu lại; xem [mục tiêu hiện tại](mdx/README.md). Việc SELECT không yêu cầu chạy lại ETL hay Process.
 
 - [Hướng dẫn chạy MDX](docs/MDX_GUIDE.md)
 - [Định nghĩa và kết quả kiểm chứng](docs/MDX_VALIDATED.md)

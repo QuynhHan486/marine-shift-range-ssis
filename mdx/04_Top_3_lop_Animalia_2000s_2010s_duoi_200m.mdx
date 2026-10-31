@@ -1,6 +1,6 @@
 -- Adapted to deployed cube MARINE SHIFT RANGE DW / database MARINE_SHIFT_RANGE_SSAS.
--- Q04. Ba lớp Animalia có nhiều loài nhất trong lát cắt đã chọn
--- Rank once across pooled decades/bands, then compare the same three classes.
+-- Q04. Ba lớp Animalia có nhiều loài nhất trong 2000s-2010s, độ sâu <200 m
+-- Rank once across both decades and all latitudes in the study area; return three classes.
 -- Subselect restricts real members before TOPCOUNT; never sum slice-specific richness.
 
 WITH
@@ -25,14 +25,10 @@ SET [Top Three Classes] AS
 
 SELECT
     {[Measures].[Recorded Species], [Measures].[Record Count]} ON COLUMNS,
-    NONEMPTY([Top Three Classes]
-             * {[Dim Date].[Decade].&[2000s], [Dim Date].[Decade].&[2010s]}
-             * {[Dim Location].[Latitude Band].&[10-15°N], [Dim Location].[Latitude Band].&[20-23°N]},
-             {[Measures].[Record Count]}) ON ROWS
+    [Top Three Classes] ON ROWS
 FROM (
     SELECT
         {[Dim Date].[Decade].&[2000s], [Dim Date].[Decade].&[2010s]}
-        * {[Dim Location].[Latitude Band].&[10-15°N], [Dim Location].[Latitude Band].&[20-23°N]}
         * {[Dim Depth Band].[Id].&[1], [Dim Depth Band].[Id].&[2]} ON COLUMNS
     FROM [MARINE SHIFT RANGE DW]
 )

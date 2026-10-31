@@ -7,7 +7,7 @@
   "queries_executed": 15,
   "queries_reconciled": 15,
   "cells_checked": 36864,
-  "status": "PASS",
+  "status": "REVALIDATION_REQUIRED",
   "queries": [
     {
       "number": 1,
@@ -308,5 +308,23 @@
   ],
   "source_build": "SSAS Development succeeded, 0 failed; existing design warnings remain",
   "deployment": "Updated model deployed using SSMS 22 client libraries; ProcessFull succeeded",
-  "filename_update": "Renamed user-saved files; verified query text unchanged except encoding, line endings or final newline. Original execution filenames retained in executed_as."
+  "filename_update": "Renamed user-saved files; verified query text unchanged except encoding, line endings or final newline. Original execution filenames retained in executed_as.",
+  "current_source_review": {
+    "review_date": "2026-11-01",
+    "changed_query_numbers": [
+      4,
+      6
+    ],
+    "runtime_validation_status": "PENDING",
+    "reason": "Revised Q4 removes latitude restrictions and returns pooled class totals; Q6 retains all shore-distance groups. Local SSAS instance has zero catalogs. Existing PASS results and checksums describe the earlier source only.",
+    "current_query_files": {
+      "4": "04_Top_3_lop_Animalia_2000s_2010s_duoi_200m.mdx",
+      "6": "06_Nhom_moi_truong_SST_SSS_va_khoang_cach_bo_theo_thap_ky.mdx"
+    },
+    "source_sha256": {
+      "04_Top_3_lop_Animalia_2000s_2010s_duoi_200m.mdx": "af7e6625cd0e20ffaa31a37a6eec6126441e93da94f44bb1789625c717b41835",
+      "06_Nhom_moi_truong_SST_SSS_va_khoang_cach_bo_theo_thap_ky.mdx": "66fc4d59497fdbfead29ca9bc464f79eab85fc942aafb6398ef7c97d57768582"
+    }
+  },
+  "historical_status": "PASS"
 }

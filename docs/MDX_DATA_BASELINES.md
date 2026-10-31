@@ -38,7 +38,7 @@ Computed on **15 October 2026 (Asia/Bangkok)** from the current data/occurrence_
 | Known SST records | 107,990 |
 | Known SSS records | 107,990 |
 
-The current CSV has **23 columns** and no flag_marine_unsure. Older data/manifest.json, source README, and ETL definitions still refer to the previous 24-column layout; they should not be treated as this snapshot's schema.
+The current CSV, manifest and ETL use **23 columns**, with no flag_marine_unsure. Q4 controls were refreshed for the revised whole-area scope; other tables retain their stated source-snapshot definitions.
 
 ## Q1 / overall decade controls
 
@@ -66,15 +66,15 @@ The current CSV has **23 columns** and no flag_marine_unsure. Older data/manifes
 
 ## Q4 / top three Animalia classes by recorded species richness
 
-Filter: 2000-2019 inclusive; Animalia; latitude [10,15) or [20,23]; nonmissing depth <200 m; nonblank class. Rank once across the combined slice, before splitting results by decade or latitude band.
+Filter: 2000–2019 inclusive; Animalia; all latitudes in the study area; nonmissing depth in [0,200) m; nonblank class. Rank across both decades together and return three class totals. Source taxonomy is unchanged; these are CSV controls, not executed cube results.
 
 | class | species | records | records_with_individualCount |
 | --- | --- | --- | --- |
-| Teleostei | 199 | 358 | 287 |
-| Hexacorallia | 141 | 616 | 0 |
-| Copepoda | 72 | 168 | 0 |
+| Teleostei | 302 | 718 | 645 |
+| Hexacorallia | 169 | 1282 | 188 |
+| Demospongiae | 76 | 254 | 0 |
 
-Total records in this slice before selecting the top classes: **2,124**.
+Total records in this slice before selecting the top classes: **4,019**. Updated from the supplied CSV on 1 November 2026.
 
 ## Q7 / five one-degree cells with highest recorded species richness per decade
 
