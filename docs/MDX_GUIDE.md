@@ -1,5 +1,7 @@
 # Hướng dẫn chạy 15 câu MDX trên cube hiện tại
 
+**Source SSIS hiện tại:** project `ssis_demo/marineRangeShift_SSIS_demo.dtproj`, package `MarineOccurrenceETL.dtsx`, nhập từ New SSIS.zip của laptop. Bản build và snapshot database marineRangeShift_demo đi kèm được giữ trong repo. SSAS Data Source mặc định trỏ đến `.\SQLSERVER2025DEV` / `marineRangeShift_demo`; đổi server nếu chạy trên máy khác. Cần Process và đối chiếu lại cả 15 câu trên warehouse này; bằng chứng lịch sử không phải kết quả chạy mới.
+
 Bộ trước khi sửa đã chạy thành công 15/15 câu và đối chiếu 36.864 ô. Theo danh sách câu hỏi cập nhật, **Q4 và Q6 đã thay đổi phạm vi và chưa được chạy lại trên SSAS**; 13 câu còn lại giữ nguyên mã MDX. Xem [danh sách mục tiêu hiện tại](../mdx/README.md) và [phạm vi kiểm chứng](MDX_VALIDATED.md). Máy chỉnh sửa hiện tại chưa có catalog SSAS để thực thi bộ câu mới.
 
 ## Mở và chạy

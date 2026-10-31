@@ -3,7 +3,7 @@
   <Name>MARINE SHIFT RANGE DW</Name>
   <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
   <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
-  <ConnectionString>Provider=MSOLEDBSQL19.1;Data Source=localhost;Persist Security Info=False;Integrated Security=SSPI;User ID=;Initial Catalog=MARINE_SHIFT_RANGE_DW;Initial File Name=;Trust Server Certificate=True;Server SPN=;Authentication=;Access Token=;Host Name In Certificate=;Server Certificate=</ConnectionString>
+  <ConnectionString>Provider=MSOLEDBSQL19.1;Data Source=.\SQLSERVER2025DEV;Persist Security Info=False;Integrated Security=SSPI;User ID=;Initial Catalog=marineRangeShift_demo;Initial File Name=;Trust Server Certificate=True;Server SPN=;Authentication=;Access Token=;Host Name In Certificate=;Server Certificate=</ConnectionString>
   <ConnectionStringSecurity>PasswordRemoved</ConnectionStringSecurity>
   <ImpersonationInfo>
     <ImpersonationMode>ImpersonateServiceAccount</ImpersonationMode>

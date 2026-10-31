@@ -1,0 +1,20 @@
+{
+  "database_name": "marineRangeShift_demo",
+  "source_archive_sha256": "9d961eafe04d16459c781e516179c344d79b7c80d55b5dde041f0353f996c3c8",
+  "bundle": "marineRangeShift_demo.zip",
+  "bundle_size_bytes": 43404009,
+  "bundle_sha256": "5a57d1be23e403ce0db9e96d41fa03b4fe96471cf25990b9db283312525761ca",
+  "files": [
+    {
+      "name": "marineRangeShift_demo.mdf",
+      "size_bytes": 75497472,
+      "sha256": "4081b5810eb9ef6b7573251ac069d6057af0b7fd35842d43b78a8a356cb02275"
+    },
+    {
+      "name": "marineRangeShift_demo_log.ldf",
+      "size_bytes": 209715200,
+      "sha256": "f95ad71e94380a988e8e5e4b8526b8e44c5e63fda79e607c5c004e9dbaf81c02"
+    }
+  ],
+  "note": "Original laptop database files, byte-preserved inside the ZIP. Not attached or modified during import."
+}

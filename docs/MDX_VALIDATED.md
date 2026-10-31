@@ -1,5 +1,7 @@
 # Phạm vi kiểm chứng bộ MDX
 
+**Source SSIS hiện tại:** project `ssis_demo/marineRangeShift_SSIS_demo.dtproj`, package `MarineOccurrenceETL.dtsx`, nhập từ New SSIS.zip của laptop. Bản build và snapshot database marineRangeShift_demo đi kèm được giữ trong repo. SSAS Data Source mặc định trỏ đến `.\SQLSERVER2025DEV` / `marineRangeShift_demo`; đổi server nếu chạy trên máy khác. Cần Process và đối chiếu lại cả 15 câu trên warehouse này; bằng chứng lịch sử không phải kết quả chạy mới.
+
 **Lần chạy lịch sử trước khi sửa Q4/Q6:** 15/15 câu thành công, đối chiếu 36.864 ô với snapshot đọc từ 6 bảng dbo.
 
 **Trạng thái hiện tại:** Q4 bỏ bộ lọc vĩ độ và trả ba lớp theo tổng gộp hai thập kỷ; Q6 giữ toàn bộ nhóm khoảng cách. Hai câu này cần được chạy và đối chiếu lại. Máy chỉnh sửa hiện tại có 0 catalog SSAS nên chỉ kiểm tra mã, các phép đối chiếu độc lập và dữ liệu nguồn. Trạng thái tổng của evidence/mdx-suite-validation.json là REVALIDATION_REQUIRED; các kết quả PASS bên trong mô tả bộ cũ; trường current_source_review ghi nhận thay đổi này.

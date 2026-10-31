@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="__SQLSERVER2025DEV"
+  DTS:DTSID="{89D60E3A-180D-4E1C-B1BA-78552099A5D7}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=.\SQLSERVER2025DEV;Initial Catalog=marineRangeShift_demo;Provider=MSOLEDBSQL19.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-marineRangeShift_SSIS_demo-{89D60E3A-180D-4E1C-B1BA-78552099A5D7}.\SQLSERVER2025DEV;Trust Server Certificate=True;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

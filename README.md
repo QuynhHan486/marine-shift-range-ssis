@@ -2,35 +2,53 @@
 
 Đồ án Kho dữ liệu và OLAP: phân tích sự thay đổi phạm vi phân bố của sinh vật biển tại Biển Đông trong bối cảnh biến đổi khí hậu.
 
-Nguồn đầu vào duy nhất là `data/occurrence_clean.csv`: **108.680 bản ghi, 23 cột**. Không cần `calendar.csv` hoặc `taxon_dimension.csv` riêng.
+Nguồn đầu vào duy nhất: `data/occurrence_clean.csv` — **108.680 bản ghi, 23 cột**.
 
 ## Mở project
 
-Mở `MARINE_SHIFT_RANGE.slnx` trong Visual Studio để xem cả SSIS và SSAS. Có thể mở từng project bằng solution trong thư mục tương ứng.
+Mở `MARINE_SHIFT_RANGE.slnx` trong Visual Studio để thấy cả **SSIS từ laptop** và SSAS. Source SSIS được nhập từ `New SSIS.zip`; triển khai SSIS cũ dùng staging và SQL đã được gỡ bỏ.
+
+Có thể mở riêng:
+
+- [Solution SSIS](ssis_demo/marineRangeShift_SSIS_demo.slnx)
+- [Project SSIS](ssis_demo/marineRangeShift_SSIS_demo.dtproj)
+- [Package MarineOccurrenceETL](ssis_demo/MarineOccurrenceETL.dtsx)
+- [Solution SSAS](ssas/MARINE_SHIFT_RANGE_SSAS.slnx)
 
 | Đường dẫn | Nội dung |
 |---|---|
-| `ssis/` | Project SSIS và `Package.dtsx` |
+| `ssis_demo/` | Project, package, connection manager và bản build `.ispac` từ laptop; kèm các biểu thức hướng dẫn |
+| `database/` | Hai file `.mdf`/`.ldf` gốc được nén trong một ZIP; có SHA-256 để đối chiếu |
+| `sql/demo/` | Script tạo database/bảng, khởi tạo nhóm độ sâu và đặt lại dữ liệu demo |
+| `data/` | Một CSV nguồn, mô tả và fingerprint kiểm tra |
+| `docs/` | Báo cáo Word, hướng dẫn SSIS và tài liệu MDX |
 | `ssas/` | Project SSAS Multidimensional, dimensions, cube và Data Source View |
-| `mdx/` | 15 câu truy vấn; xem [danh sách](mdx/README.md) |
-| `data/` | CSV nguồn, mô tả nguồn và fingerprint kiểm tra |
-| `sql/` | Schema, views, procedures và truy vấn kiểm tra của package |
-| `sql/demo/` | SQL tạo bảng, khởi tạo nhóm độ sâu và đặt lại dữ liệu cho demo thao tác thủ công |
-| `ssis_demo/` | Biểu thức Derived Column dùng trong demo thủ công |
-| `docs/` | Báo cáo Word, hướng dẫn SSIS và MDX |
-| `scripts/` | Công cụ build, chạy ETL và đối chiếu kết quả |
-| `tests/`, `evidence/` | Kiểm tra và bằng chứng kiểm chứng đã lưu |
-| `MARINE_SHIFT_RANGE_SSIS.ispac` | Bản build SSIS đã kiểm chứng, dùng để triển khai |
+| `mdx/` | [15 câu MDX](mdx/README.md) theo các mục tiêu phân tích đã sửa |
+| `scripts/` | Công cụ chạy MDX và đối chiếu với snapshot warehouse |
+| `tests/`, `evidence/` | Kiểm tra source, bằng chứng nhập project và kiểm chứng MDX lịch sử |
 
-## Tài liệu SSIS và báo cáo
+## Chuẩn bị và chạy SSIS
 
-- [Báo cáo Word có Chương 2 SSIS](docs/BT_OLAP_A1.1_Chuong_2_SSIS.docx): các bước, hình trích video, ánh xạ cột và kết quả nạp đã xác nhận.
-- [Hướng dẫn dựng demo SSIS](docs/SSIS_DEMONSTRATION_GUIDE.docx): thực hành với Flat File Source, Derived Column, Sort, Aggregate, Merge Join, Lookup và OLE DB Destination.
-- `ssis_demo/derived_column_expressions.txt`: biểu thức để sao chép khi dựng demo.
+Dùng Visual Studio có extension SSIS Projects hỗ trợ SQL Server 2025. Project triển khai theo Project Deployment Model, target SQL Server 2025.
 
-Hướng dẫn và video mô tả demo thủ công gồm năm Data Flow Task; `Dim_Depth_Band` được khởi tạo bằng SQL. Project `ssis/Package.dtsx` đi kèm là một triển khai khác dùng staging và biến đổi bằng SQL, gồm 11 tác vụ và 7 Data Flow. Chọn đúng hướng dẫn cho quy trình đang trình bày.
+1. Giải nén và Attach database được cung cấp theo [hướng dẫn database](database/README.md), hoặc tạo database trống `marineRangeShift_demo` bằng `sql/demo/00_create_demo_database.sql`, chạy `01_create_warehouse_tables.sql` rồi `03_seed_depth_bands.sql` trong cùng database.
+2. Mở solution SSIS hoặc solution chung. Mở `MarineOccurrenceETL.dtsx`.
+3. Trong Connection Managers của package, mở **OBIS**, Browse đến `data/occurrence_clean.csv` ở bản repo đang sử dụng. Source gốc giữ đường dẫn CSV trên laptop nên cần chọn lại khi chuyển máy/thư mục.
+4. Mở project connection manager `marineRangeShift_warehouse_demo.conmgr` (tên hiển thị `__SQLSERVER2025DEV`). Kiểm tra server, database và Test Connection. Mặc định của laptop là `.\SQLSERVER2025DEV`, database `marineRangeShift_demo`, Windows Authentication, OLE DB Driver 19.
+5. Nếu database đã có dữ liệu, chỉ đặt lại bằng `sql/demo/04_clear_loaded_data.sql` khi muốn trình diễn nạp lại. Script xóa Fact và bốn chiều được nạp từ CSV, giữ năm nhóm độ sâu. Không chạy package nạp toàn bộ vào các bảng đang có dữ liệu.
+6. Lưu kết nối rồi nhấn F5. Kiểm tra kết quả theo [hướng dẫn SSIS](docs/SSIS_DEMONSTRATION_GUIDE.docx) và [báo cáo Word](docs/BT_OLAP_A1.1_Chuong_2_SSIS.docx).
 
-| Bảng | Số dòng đã đối chiếu |
+Tên database, project và connection trong source được cung cấp ở trên là các tên đang dùng cho project laptop. Áp dụng các bước trong tài liệu hướng dẫn với các tên này.
+
+Control Flow gồm năm tác vụ, nối bằng bốn điều kiện Success:
+
+```text
+Load Dim_Date → Load Dim_Taxon → Load Dim_Location → Load Dim_Quality → Load Fact_Occurrence
+```
+
+`Dim_Depth_Band` được khởi tạo bằng SQL. Package dùng Flat File Source, Derived Column, Sort, Aggregate, Multicast, Merge Join, Lookup và OLE DB Destination. Không cần file calendar hoặc taxon riêng.
+
+| Bảng | Số dòng tham chiếu đã xác nhận trong demo |
 |---|---:|
 | Dim_Date | 2.314 |
 | Dim_Taxon | 7.737 |
@@ -39,65 +57,40 @@ Hướng dẫn và video mô tả demo thủ công gồm năm Data Flow Task; `D
 | Dim_Quality | 26 |
 | Fact_Occurrence | 108.680 |
 
-## Chạy package trong `ssis/`
+`ssis_demo/marineRangeShift_SSIS_demo.ispac` là bản build từ archive laptop, đã đối chiếu khớp package, connection manager và project parameters. Khi sửa source/kết nối, Build project để tạo bản triển khai mới trong `bin/Development/`. Build được cung cấp vẫn giữ cấu hình laptop gốc.
 
-Yêu cầu: Windows, SQL Server 2025 với Integration Services runtime, Microsoft OLE DB Driver for SQL Server (`MSOLEDBSQL`), `sqlcmd` và Windows Authentication. Mở/build project bằng Visual Studio có extension SSIS Projects hỗ trợ SQL Server 2025.
+## Database và bằng chứng nhập source
 
-Từ thư mục gốc repository:
+[Bundle database](database/marineRangeShift_demo.zip) chứa nguyên file `marineRangeShift_demo.mdf` và `marineRangeShift_demo_log.ldf`. Hai file được nén để giữ bundle dưới giới hạn kích thước file của GitHub; không đưa file `.ldf` lớn trực tiếp vào Git. [Manifest](database/manifest.json) lưu kích thước và SHA-256 của bundle cùng từng file.
 
-```powershell
-.\scripts\initialize.ps1 -ServerName '.' -DatabaseName 'MARINE_SHIFT_RANGE_DW'
-.\scripts\run-etl.ps1 -ServerName '.' -DatabaseName 'MARINE_SHIFT_RANGE_DW'
-sqlcmd -S . -E -d MARINE_SHIFT_RANGE_DW -b -f 65001 -i .\sql\04_verify.sql
-```
+`evidence/ssis-laptop-import.json` ghi nguồn archive và hash từng file source được nhập. Package, project, connection manager và parameters giữ nguyên cấu trúc/giá trị XML; chỉ chuẩn hóa xuống dòng LF để lưu bằng Git. Bản build giữ nguyên byte từ archive. Solution riêng đổi đường dẫn project để phù hợp bố cục repo. Bản CSV trùng lặp, cache `.vs/`, thiết lập `.user` và file trung gian `obj/` không được nhập.
 
-Thay `.` bằng tên instance của máy thực hiện. Có thể truyền `-DataFile 'D:\OLAP\occurrence_clean.csv'` cho `run-etl.ps1`.
-
-Để chạy trong Visual Studio, mở `ssis/MARINE_SHIFT_RANGE_SSIS.sln` hoặc `.slnx`, mở `Package.dtsx` và đặt các biến `User::ServerName`, `User::DatabaseName`, `User::DataFile` (đường dẫn tuyệt đối), `User::MaxRejects=0`. Build configuration Development tạo file `.ispac` trong `ssis/bin/Development/`.
-
-Package đọc CSV vào staging, kiểm tra và chuyển đổi bằng SQL, nạp các bảng chiều và Fact vào schema `load`, sau đó đối soát và publish sang `dbo` trong transaction. Schema `etl` giữ nhật ký batch, rejects và các phương án phân loại mâu thuẫn. Nguồn phải là snapshot đầy đủ; quy trình này thay snapshot khi thành công, không dùng để append dữ liệu delta. Các kiểm tra số dòng cố định chỉ áp dụng cho CSV được cung cấp.
+Quá trình nhập source không chạy ETL và không Attach hay thay đổi database. Các kiểm tra cục bộ không thay thế việc chạy package trong môi trường SQL Server/SSIS.
 
 ## SSAS và MDX
 
-Mở `ssas/MARINE_SHIFT_RANGE_SSAS.slnx` để cấu hình nguồn và triển khai cube trên máy thực hiện. Cần Deploy và Process trước khi truy vấn mô hình mới hoặc sau khi đổi cấu trúc/dữ liệu nguồn.
+Data Source của SSAS mặc định trỏ đến cùng server/database của package laptop: `.\SQLSERVER2025DEV` / `marineRangeShift_demo`. Đổi server khi làm trên máy khác. Sau khi kết nối kho mới, kiểm tra schema/khóa, Deploy và Process cube, rồi chạy và đối chiếu lại **cả 15 câu MDX**.
 
-Trong SSMS, kết nối **Analysis Services**, chọn database `MARINE_SHIFT_RANGE_SSAS` rồi mở một file trong `mdx/`. Tên cube trong `FROM` là `[MARINE SHIFT RANGE DW]`; measure đếm bản ghi là `[Measures].[Occurrence Count]`.
+Trong SSMS, kết nối **Analysis Services** đến instance đã triển khai, chọn database SSAS và mở từng file `.mdx`. Tên cube trong source là `[MARINE SHIFT RANGE DW]`.
 
 ```mdx
 SELECT {[Measures].[Occurrence Count]} ON COLUMNS
 FROM [MARINE SHIFT RANGE DW];
 ```
 
-Với snapshot đã cung cấp, tổng bản ghi là **108.680**. Bộ trước khi cập nhật đã được kiểm chứng trên môi trường trước đó, đối chiếu 36.864 ô kết quả. Q4 và Q6 đã đổi phạm vi theo câu hỏi mới và cần được chạy/đối chiếu lại; xem [mục tiêu hiện tại](mdx/README.md). Việc SELECT không yêu cầu chạy lại ETL hay Process.
+Với toàn bộ dữ liệu đã cung cấp, số bản ghi kỳ vọng là **108.680**. Kết quả MDX lịch sử từ warehouse trước đó không phải bằng chứng thực thi trên database mới; Q4 và Q6 cũng đã được sửa phạm vi.
 
+- [Mục tiêu và danh sách truy vấn](mdx/README.md)
 - [Hướng dẫn chạy MDX](docs/MDX_GUIDE.md)
-- [Định nghĩa và kết quả kiểm chứng](docs/MDX_VALIDATED.md)
-- [Số tham chiếu từ CSV](docs/MDX_DATA_BASELINES.md)
+- [Trạng thái kiểm chứng](docs/MDX_VALIDATED.md)
+- [Số tham chiếu CSV](docs/MDX_DATA_BASELINES.md)
 
-Nếu gặp lỗi nhận diện edition `StandardDeveloper64` khi Deploy bằng extension Visual Studio, môi trường đã kiểm chứng sử dụng Deployment Wizard của SSMS 22 với file `.asdatabase` được build trong `ssas/bin/`.
-
-## Kiểm tra và bằng chứng
+## Kiểm tra source
 
 ```powershell
 python -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-Các kiểm tra trên xác nhận fingerprint CSV, schema và cấu trúc XML/ISPAC, không cần kết nối SQL Server. GitHub Actions cũng kiểm tra SQL sinh từ nguồn còn đồng bộ.
+Các kiểm tra xác nhận fingerprint/thống kê CSV, tham chiếu project và solution, bản build khớp source, thứ tự năm Data Flow, cột nguồn và ánh xạ Fact/Lookup. Các kiểm tra MDX kiểm soát phạm vi đối chiếu Q4/Q6. GitHub Actions chạy các kiểm tra này, không thực thi SSIS hoặc SSAS.
 
-Các lệnh sau dành cho môi trường SQL Server/SSIS đã cấu hình; integration test có thao tác nạp dữ liệu:
-
-```powershell
-.\tests\integration.ps1
-python .\scripts\build_sql.py
-.\scripts\build-package.ps1
-```
-
-- `evidence/warehouse-validation.json`: số dòng, mẫu dữ liệu, hash và nhật ký batch.
-- `evidence/integration-tests.json`: kết quả nạp lại và thử dữ liệu lỗi.
-- `evidence/mdx-suite-validation.json`: đối chiếu toàn bộ bộ MDX.
-- `evidence/mdx-q01-validation.json`: baseline câu 1, được `scripts/reconcile-mdx.py` sử dụng.
-- Các log được giữ trong `evidence/` ghi nhận lần chạy, kiểm tra SQL và build đã thực hiện.
-
-Số bản ghi, số loài phân biệt và số cá thể được báo cáo có ý nghĩa khác nhau. SST/SSS đi kèm vị trí không tự chứng minh điều kiện môi trường tại ngày quan sát hoặc quan hệ nhân quả với biến đổi khí hậu. Giữ NULL khi nguồn thiếu thông tin. Chi tiết nguồn và phạm vi: [data/README.md](data/README.md).
-
-Tệp tạm, cache Visual Studio, thiết lập cá nhân và đầu ra build trong `bin/`, `obj/` được bỏ qua bởi Git.
+Số bản ghi, số loài và số cá thể được báo cáo có ý nghĩa khác nhau. SST/SSS đi kèm vị trí không tự xác nhận điều kiện tại ngày quan sát hoặc quan hệ nhân quả với biến đổi khí hậu. Giữ NULL khi nguồn thiếu thông tin. Chi tiết nguồn: [data/README.md](data/README.md).

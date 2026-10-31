@@ -324,6 +324,31 @@
     "source_sha256": {
       "04_Top_3_lop_Animalia_2000s_2010s_duoi_200m.mdx": "af7e6625cd0e20ffaa31a37a6eec6126441e93da94f44bb1789625c717b41835",
       "06_Nhom_moi_truong_SST_SSS_va_khoang_cach_bo_theo_thap_ky.mdx": "66fc4d59497fdbfead29ca9bc464f79eab85fc942aafb6398ef7c97d57768582"
+    },
+    "warehouse_transition": {
+      "active_project": "ssis_demo/marineRangeShift_SSIS_demo.dtproj",
+      "active_package": "ssis_demo/MarineOccurrenceETL.dtsx",
+      "database": "marineRangeShift_demo",
+      "source_import_evidence": "evidence/ssis-laptop-import.json",
+      "required_query_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "runtime_validation_status": "PENDING",
+      "note": "The laptop project and matching supplied build are imported, preserving package logic/settings and normalizing source line endings. Old staging/SQL SSIS implementation is retired. Reprocess SSAS against the new warehouse and refresh independent baselines before treating historical MDX results as current."
     }
   },
   "historical_status": "PASS"

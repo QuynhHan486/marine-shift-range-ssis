@@ -2,3 +2,4 @@
 *.csv -text
 *.ispac binary
 *.pdf binary
+*.zip binary

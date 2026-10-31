@@ -1,0 +1,72 @@
+{
+  "source_archive": "New SSIS.zip",
+  "source_archive_sha256": "9d961eafe04d16459c781e516179c344d79b7c80d55b5dde041f0353f996c3c8",
+  "package": "ssis_demo/MarineOccurrenceETL.dtsx",
+  "project": "ssis_demo/marineRangeShift_SSIS_demo.dtproj",
+  "database_bundle": "database/marineRangeShift_demo.zip",
+  "source_csv_matches_repository": true,
+  "files": [
+    {
+      "repository_path": "ssis_demo/MarineOccurrenceETL.dtsx",
+      "archive_member": "New SSIS/marineRangeShift_SSISproject_demo/marineRangeShift_SSIS_demo/MarineOccurrenceETL.dtsx",
+      "sha256": "2071010555e06d993dd923f6f108ee5bc7c7102246003beb34d460593227cc17",
+      "unchanged_from_archive": false,
+      "archive_sha256": "a0e9ba4e9e1be4782d721d4c3923f2e20de00cd958b69f6f974f3edca2aa2e50",
+      "xml_semantically_unchanged": true,
+      "adjustment": "Line endings normalized to LF for Git. XML values, package logic and connection settings preserved."
+    },
+    {
+      "repository_path": "ssis_demo/marineRangeShift_SSIS_demo.dtproj",
+      "archive_member": "New SSIS/marineRangeShift_SSISproject_demo/marineRangeShift_SSIS_demo/marineRangeShift_SSIS_demo.dtproj",
+      "sha256": "9973b21d58095bbf9ff7234f62af3628716c2eda1901f47b43ce421984f7aad5",
+      "unchanged_from_archive": false,
+      "archive_sha256": "884af4351281058958356b340b39e72a9291e01064085cc219d6f99de906c71a",
+      "xml_semantically_unchanged": true,
+      "adjustment": "Line endings normalized to LF for Git. XML values, package logic and connection settings preserved."
+    },
+    {
+      "repository_path": "ssis_demo/marineRangeShift_SSIS_demo.database",
+      "archive_member": "New SSIS/marineRangeShift_SSISproject_demo/marineRangeShift_SSIS_demo/marineRangeShift_SSIS_demo.database",
+      "sha256": "d5f82dffe751e176a7dec905be0d14d0468565927133a04cc9dfac2341d584b6",
+      "unchanged_from_archive": false,
+      "archive_sha256": "840d9fa4d3d685dbec23d7a1967ec445d370372e0ac77357a6276b5c2e6d0a4e",
+      "xml_semantically_unchanged": true,
+      "adjustment": "Line endings normalized to LF for Git. XML values, package logic and connection settings preserved."
+    },
+    {
+      "repository_path": "ssis_demo/marineRangeShift_warehouse_demo.conmgr",
+      "archive_member": "New SSIS/marineRangeShift_SSISproject_demo/marineRangeShift_SSIS_demo/marineRangeShift_warehouse_demo.conmgr",
+      "sha256": "0d53b7fdacc0be77a7d459335111a2cd1157756c0890e3acb21c30dbac1175f3",
+      "unchanged_from_archive": false,
+      "archive_sha256": "7696ef29ab5bf38d005a7d6b27d997b2e6edd06e65891f80e16c1aae9be14d46",
+      "xml_semantically_unchanged": true,
+      "adjustment": "Line endings normalized to LF for Git. XML values, package logic and connection settings preserved."
+    },
+    {
+      "repository_path": "ssis_demo/Project.params",
+      "archive_member": "New SSIS/marineRangeShift_SSISproject_demo/marineRangeShift_SSIS_demo/Project.params",
+      "sha256": "9c00569a1b72c16ac143afd0febb28140d406d1a0a4985b4c5e16d16cb86c9c1",
+      "unchanged_from_archive": false,
+      "archive_sha256": "e3f1ec57ea5841db2a2a97a0478901a5deec71793c5dcff03b433158605eca4f",
+      "xml_semantically_unchanged": true,
+      "adjustment": "Line endings normalized to LF for Git. XML values, package logic and connection settings preserved."
+    },
+    {
+      "repository_path": "ssis_demo/marineRangeShift_SSIS_demo.ispac",
+      "archive_member": "New SSIS/marineRangeShift_SSISproject_demo/marineRangeShift_SSIS_demo/bin/Development/marineRangeShift_SSIS_demo.ispac",
+      "sha256": "795d043195b31cdbbe8815bdd66245541f6f2253157fa5723953aa6f0ce35591",
+      "unchanged_from_archive": true,
+      "archive_sha256": "795d043195b31cdbbe8815bdd66245541f6f2253157fa5723953aa6f0ce35591"
+    },
+    {
+      "repository_path": "ssis_demo/marineRangeShift_SSIS_demo.slnx",
+      "archive_member": "New SSIS/marineRangeShift_SSISproject_demo/marineRangeShift_SSIS_demo.slnx",
+      "sha256": "cb190060ffdf92bbb4cf460b891638ed35ba03e45a9cb713ce769f2ff052e22f",
+      "unchanged_from_archive": false,
+      "adjustment": "Only the project path is shortened to match the repository layout; line endings normalized.",
+      "archive_sha256": "6258c0c6a16f4bfb6972aed1219fd389d81daf6faecb6a84f5c68fee58193a0f"
+    }
+  ],
+  "excluded": "Visual Studio caches, user settings, obj/ intermediates and the duplicate occurrence_clean.csv. The matching supplied build is retained once outside bin/.",
+  "validation_scope": "Package XML, project/connection references, five data flows, four success constraints, fact mappings and supplied build/source consistency; no ETL execution or database attachment performed."
+}
